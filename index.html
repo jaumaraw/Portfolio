@@ -84,6 +84,7 @@
     min-height: 100vh;
     display: flex;
     align-items: flex-end;
+    justify-content: flex-end;
     padding: 0 3rem 5rem;
     position: relative;
     overflow: hidden;
@@ -125,7 +126,7 @@
     background: var(--accent);
   }
 
-  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+  .hero-content { position: relative; z-index: 1; max-width: 900px; margin-bottom: 10rem; }
 
   h1 {
     font-family: var(--font-display);
@@ -182,8 +183,8 @@
 
   .hero-stats {
     position: absolute;
-    right: 3rem;
-    bottom: 5rem;
+    left: 3rem;
+    bottom: 9rem;
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -192,7 +193,7 @@
   }
 
   .stat-num { font-family: var(--font-display); font-size: 2.2rem; color: var(--white); line-height: 1; }
-  .stat-label { font-size: 0.7rem; color: var(--gray-light); letter-spacing: 0.15em; text-transform: uppercase; }
+  .stat-label { font-size: 0.7rem; color: var(--gray-light); letter-spacing: 0.15em; text-transform: uppercase; text-align: left; }
 
   /* SECTIONS */
   section { padding: 6rem 3rem; }
@@ -218,60 +219,83 @@
     margin-bottom: 1rem;
   }
 
-  /* SERVICIOS */
-  .services { background: var(--black); border-top: 1px solid rgba(200,169,110,0.08); }
+  /* SOBRE MÍ */
+  .about { background: #0d0d0b; border-top: 1px solid rgba(200,169,110,0.08); }
 
-  .services-intro {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: end;
-    margin-bottom: 4rem;
+  .about-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3.5rem;
+    max-width: 800px;
+    margin: 3rem auto 0;
   }
 
-  .services-desc { color: var(--gray-light); font-size: 1rem; font-weight: 300; line-height: 1.8; max-width: 420px; }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(200,169,110,0.08);
+  .about-photo {
+    position: relative;
+    flex: 0 0 280px;
+    width: 280px;
+    aspect-ratio: 4/5;
+    background: #141412;
+    padding: 14px;
   }
 
-  .service-card {
-    background: var(--black);
-    padding: 2.5rem 2rem;
-    transition: background 0.3s;
+  .about-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(200,169,110,0.35);
+    pointer-events: none;
   }
 
-  .service-card:hover { background: #141412; }
+  .about-photo::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 46px;
+    height: 46px;
+    border-top: 2px solid var(--accent);
+    border-left: 2px solid var(--accent);
+    pointer-events: none;
+  }
 
-  .service-num {
-    font-family: var(--font-display);
-    font-size: 3.5rem;
-    color: rgba(200,169,110,0.12);
-    line-height: 1;
-    margin-bottom: 1.25rem;
+  .about-photo-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6);
+  }
+
+  .about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    transition: color 0.3s;
+    filter: grayscale(15%) contrast(1.05);
+    transition: filter 0.5s ease, transform 0.6s ease;
   }
 
-  .service-card:hover .service-num { color: rgba(200,169,110,0.25); }
-
-  .service-title { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.04em; margin-bottom: 0.75rem; }
-
-  .service-text { font-size: 0.88rem; color: var(--gray-light); line-height: 1.7; font-weight: 300; }
-
-  .service-tag {
-    display: inline-block;
-    margin-top: 1.5rem;
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid rgba(200,169,110,0.3);
-    padding: 0.3rem 0.75rem;
+  .about-photo:hover img {
+    filter: grayscale(0%) contrast(1.05);
+    transform: scale(1.04);
   }
+
+  .about-text p {
+    color: var(--gray-light);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.9;
+  }
+
+  .about-text p + p { margin-top: 1.5rem; }
+
+  @media (max-width: 700px) {
+    .about-grid { flex-direction: column; text-align: center; gap: 2rem; }
+  }
+
+  .about-text strong { color: var(--cream); font-weight: 500; }
 
   /* PROCESO */
   .process { background: #0d0d0b; }
@@ -288,74 +312,205 @@
   .step-title { font-size: 1.05rem; font-weight: 500; margin-bottom: 0.5rem; }
   .step-text { font-size: 0.85rem; color: var(--gray-light); font-weight: 300; line-height: 1.7; }
 
-  /* CLIENTES */
-  .clients { background: var(--black); border-top: 1px solid rgba(200,169,110,0.08); }
-
-  .client-types { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.5rem; }
-
-  .client-pill {
-    border: 1px solid rgba(200,169,110,0.25);
-    padding: 0.6rem 1.5rem;
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
-    color: var(--cream);
-    font-weight: 300;
-    transition: border-color 0.2s, color 0.2s;
-  }
-
-  .client-pill:hover { border-color: var(--accent); color: var(--accent); }
-
-  .clients-cta {
-    margin-top: 4rem;
-    padding-top: 3rem;
-    border-top: 1px solid rgba(200,169,110,0.08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .clients-cta p { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 3rem); line-height: 1.1; max-width: 500px; }
-  .clients-cta p em { color: var(--accent); font-style: normal; }
-
   /* CONTACTO */
   .contact {
     background: #0d0d0b;
     border-top: 1px solid rgba(200,169,110,0.08);
-    text-align: center;
-    padding: 7rem 3rem;
+    padding: 9rem 3rem 7rem;
+    position: relative;
+    overflow: hidden;
   }
 
-  .contact h2 { margin-bottom: 1rem; }
+  .contact::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 500px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(200,169,110,0.06) 0%, transparent 68%);
+    pointer-events: none;
+  }
+
+  .contact-header {
+    text-align: center;
+    margin-bottom: 5.5rem;
+    position: relative;
+  }
+
+  .contact-header h2 { margin-bottom: 1.25rem; }
 
   .contact-sub {
     color: var(--gray-light);
     font-size: 1rem;
     font-weight: 300;
-    margin-bottom: 3rem;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.7;
+    max-width: 380px;
+    margin: 0 auto;
+    line-height: 1.8;
   }
 
-  .contact-email {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 4vw, 3rem);
+  /* Formulario centrado */
+  .contact-form-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .contact-form { display: flex; flex-direction: column; }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.75rem;
+  }
+
+  .form-group label {
+    font-size: 0.63rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
     color: var(--accent);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    display: block;
-    margin-bottom: 3rem;
-    transition: color 0.2s;
+    margin-bottom: 0.9rem;
+    transition: color 0.25s;
   }
 
-  .contact-email:hover { color: var(--white); }
+  .form-group:focus-within label { color: var(--white); }
 
-  .contact-links { display: flex; justify-content: center; gap: 2.5rem; }
+  .field-line {
+    position: relative;
+  }
+
+  .field-line::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .form-group:focus-within .field-line::after { width: 100%; }
+
+  .field-line input,
+  .field-line select,
+  .field-line textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(200,169,110,0.18);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 0.6rem 0 0.8rem;
+    outline: none;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: border-color 0.25s;
+  }
+
+  .field-line input:focus,
+  .field-line select:focus,
+  .field-line textarea:focus { border-color: transparent; }
+
+  .field-line input::placeholder,
+  .field-line textarea::placeholder { color: #353533; }
+
+  .field-line select { color: var(--gray-light); cursor: pointer; }
+  .field-line select option { background: #1a1a18; color: var(--white); }
+
+  /* flecha del select */
+  .field-line select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 5 5-5' stroke='%23c8a96e' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 2px center;
+    padding-right: 1.25rem;
+  }
+
+  .field-line textarea { resize: none; min-height: 110px; line-height: 1.7; }
+
+  /* botón enviar */
+  .form-submit {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+  }
+
+  .form-error {
+    display: none;
+    color: #d98c6e;
+    font-size: 0.85rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-send:disabled { opacity: 0.6; cursor: default; }
+  .btn-send:disabled:hover { color: var(--accent); border-color: rgba(200,169,110,0.35); }
+  .btn-send:disabled:hover::before { transform: translateX(-102%); }
+
+  .btn-send {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    border: 1px solid rgba(200,169,110,0.35);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+    padding: 1.05rem 3.5rem;
+    cursor: pointer;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .btn-send::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: translateX(-102%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-send:hover { color: var(--black); border-color: var(--accent); }
+  .btn-send:hover::before { transform: translateX(0); }
+
+  .btn-send span { position: relative; z-index: 1; }
+
+  /* barra inferior de meta */
+  .contact-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 760px;
+    margin: 4.5rem auto 0;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(200,169,110,0.08);
+  }
+
+  .contact-email-link {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.6vw, 1.4rem);
+    color: var(--gray-mid);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.25s;
+  }
+
+  .contact-email-link:hover { color: var(--accent); }
+
+  .contact-links { display: flex; gap: 2rem; }
 
   .contact-links a {
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--gray-light);
     text-decoration: none;
@@ -363,6 +518,30 @@
   }
 
   .contact-links a:hover { color: var(--accent); }
+
+  /* estado de éxito */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 5rem 2rem;
+  }
+
+  .form-success-icon {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5rem);
+    color: var(--accent);
+    display: block;
+    margin-bottom: 1rem;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
+  .form-success p {
+    color: var(--gray-light);
+    font-weight: 300;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+  }
 
   /* FOOTER */
   footer {
@@ -374,6 +553,300 @@
   }
 
   footer span { font-size: 0.78rem; color: var(--gray-light); letter-spacing: 0.06em; }
+
+  /* HERO VIDEO */
+  .hero-video-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .hero-video-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1.90;
+    filter: grayscale(20%);
+  }
+
+  /* Overlay encima del vídeo para que el texto sea legible */
+  .hero-video-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(to left, rgba(10,10,10,0.85) 40%, rgba(10,10,10,0.2) 100%),
+      linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 50%);
+  }
+
+  /* Play/mute button */
+  .hero-mute-btn {
+    position: absolute;
+    bottom: 9rem;
+    right: 3rem;
+    z-index: 3;
+    background: rgba(200,169,110,0.12);
+    border: 1px solid rgba(200,169,110,0.3);
+    color: var(--accent);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .hero-mute-btn:hover { background: rgba(200,169,110,0.22); color: var(--white); }
+
+  /* PORTFOLIO GRID */
+  .portfolio { background: #0d0d0b; border-top: 1px solid rgba(200,169,110,0.08); }
+
+  .portfolio-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 3rem;
+  }
+
+  .portfolio-desc { color: var(--gray-light); font-size: 1rem; font-weight: 300; line-height: 1.8; }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  /* Proyecto grande ocupa 2 columnas */
+  .proj-item.full {
+    grid-column: 1 / -1;
+    aspect-ratio: 21/9;
+  }
+
+  .proj-item {
+    position: relative;
+    overflow: hidden;
+    background: #141412;
+    aspect-ratio: 16/10;
+    cursor: pointer;
+  }
+
+  .proj-item.large {
+    grid-column: span 2;
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+
+  .proj-item.tall {
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+
+  .proj-item img,
+  .proj-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease, filter 0.4s ease;
+    filter: grayscale(15%);
+  }
+
+  .proj-item:hover img,
+  .proj-item:hover video { transform: scale(1.04); filter: grayscale(0%); }
+
+  /* Overlay info on hover */
+  .proj-info {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.3) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .proj-item:hover .proj-info { opacity: 1; }
+
+  /* Siempre visible en mobile (sin hover) */
+  .proj-info-always {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.88) 0%, transparent 100%);
+    padding: 1.25rem 1.5rem 1rem;
+  }
+
+  .proj-cat {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+
+  .proj-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .proj-arrow {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    color: var(--accent);
+    font-size: 1.2rem;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .proj-item:hover .proj-arrow { opacity: 1; transform: none; }
+
+  /* Placeholder cuando no hay imagen */
+  .proj-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111110;
+    color: var(--gray-light);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .proj-placeholder span { font-size: 2rem; opacity: 0.2; }
+
+  /* GALERÍA FOTOGRAFÍA */
+  .gallery { background: var(--black); border-top: 1px solid rgba(200,169,110,0.08); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    grid-auto-flow: row dense;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: #111110;
+    cursor: pointer;
+  }
+
+  /* Foto de apertura: banner a todo el ancho, por encima del resto */
+  .gallery-item:first-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 21/9;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.5s ease, filter 0.4s ease;
+    filter: grayscale(20%);
+  }
+
+  .gallery-item:hover img { transform: scale(1.06); filter: grayscale(0%); }
+
+  /* LIGHTBOX */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(10,10,10,0.96);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .lightbox.open { opacity: 1; pointer-events: all; }
+
+  .lightbox-img {
+    max-width: 90vw;
+    max-height: 88vh;
+    object-fit: contain;
+    display: block;
+    transition: opacity 0.18s ease;
+    user-select: none;
+  }
+
+  .lightbox-video {
+    max-width: 90vw;
+    max-height: 88vh;
+    display: block;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: var(--gray-light);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .lightbox-close:hover { color: var(--white); }
+
+  .lightbox-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(200,169,110,0.08);
+    border: 1px solid rgba(200,169,110,0.22);
+    color: var(--accent);
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .lightbox-btn:hover { background: rgba(200,169,110,0.2); color: var(--white); }
+  .lightbox-prev { left: 1.5rem; }
+  .lightbox-next { right: 1.5rem; }
+
+  .lightbox-counter {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
 
   /* REVEAL */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -389,24 +862,32 @@
 <nav>
   <a href="#" class="logo">JAUMA<span>.</span>RAW</a>
   <ul>
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#proceso">Proceso</a></li>
-    <li><a href="#clientes">Para quién</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#sobre-mi">Sobre mí</a></li>
     <li><a href="#contacto" class="nav-cta">Hablemos</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-video-wrap">
+    <video id="heroVideo" autoplay muted loop playsinline>
+      <source src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/Video/Tormenta.mov" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+  </div>
+
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
+
   <div class="hero-content">
     <div class="hero-label">Filmmaker · Fotógrafo · Madrid</div>
     <h1>CONTENIDO<em>QUE</em>IMPACTA</h1>
     <p class="hero-desc">Creo piezas audiovisuales con identidad propia para marcas, artistas, influencers y empresas que quieren diferenciarse de verdad.</p>
     <div class="hero-actions">
       <a href="#contacto" class="btn-primary">Empezar un proyecto</a>
-      <a href="#servicios" class="btn-secondary">Ver servicios</a>
+      <a href="#sobre-mi" class="btn-secondary">Sobre mí</a>
     </div>
   </div>
   <div class="hero-stats">
@@ -419,53 +900,151 @@
       <div class="stat-label">Base · España</div>
     </div>
   </div>
+
+  <!-- Botón mute/unmute — solo visible cuando hay vídeo -->
+  <button class="hero-mute-btn" id="muteBtn" onclick="toggleMute()" aria-label="Silenciar vídeo">
+    <span id="muteIcon">🔇</span> <span id="muteLabel">Activar sonido</span>
+  </button>
+
 </section>
 
-<!-- SERVICIOS -->
-<section class="services" id="servicios">
-  <div class="services-intro">
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="portfolio-intro">
     <div>
-      <div class="section-label reveal">Servicios</div>
-      <h2 class="reveal d1">LO QUE<br>PUEDO HACER<br>POR TI</h2>
+      <div class="section-label reveal">Trabajos</div>
+      <h2 class="reveal d1">PORTFOLIO</h2>
     </div>
-    <p class="services-desc reveal d2">No produzco vídeos genéricos. Cada pieza tiene concepto, ritmo y narrativa pensada para tu audiencia y tu objetivo concreto.</p>
+    <p class="portfolio-desc reveal d2">Una selección de proyectos recientes. Cada pieza tiene un objetivo concreto, una narrativa y un cliente detrás.</p>
   </div>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <span class="service-num">01</span>
-      <div class="service-title">CONTENIDO DE MARCA</div>
-      <p class="service-text">Spots, brand films y piezas audiovisuales que cuentan quién eres y por qué importas. Para Instagram, web o campañas de marca.</p>
-      <span class="service-tag">Branded Content</span>
+
+  <!--
+    ── CÓMO AÑADIR TUS IMÁGENES Y VÍDEOS ─────────────────────────
+    1. Sube tus archivos al repo en una carpeta /img/ y /video/
+    2. En cada .proj-item, cambia el placeholder por:
+       · Para FOTO:  <img src="img/nombre.jpg" alt="Descripción del proyecto">
+       · Para VÍDEO: <video autoplay muted loop playsinline><source src="video/nombre.mp4"></video>
+    3. Personaliza .proj-cat y .proj-title con el nombre real del proyecto
+    4. La clase "large" hace que una tarjeta ocupe 2 columnas (ideal para el mejor proyecto)
+    ────────────────────────────────────────────────────────────────
+  -->
+
+  <div class="portfolio-grid">
+
+    <!-- PROYECTO 1 — GRANDE (2 columnas) -->
+    <div class="proj-item large reveal">
+      <video autoplay muted loop playsinline>
+        <source src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/Video/mac.mp4" type="video/mp4">
+      </video>
+      <div class="proj-info">
+        <div class="proj-cat">Branded Content</div>
+        <div class="proj-title">MAC</div>
+      </div>
+      <div class="proj-arrow">↗</div>
     </div>
-    <div class="service-card reveal d1">
-      <span class="service-num">02</span>
-      <div class="service-title">REELS & SOCIAL</div>
-      <p class="service-text">Vídeo vertical optimizado para Instagram y TikTok. Hook, ritmo de montaje y música pensados para enganchar desde el primer segundo.</p>
-      <span class="service-tag">Instagram · TikTok</span>
+
+    <!-- PROYECTO 2 — Spot de Marca -->
+    <div class="proj-item reveal d1">
+      <video autoplay muted loop playsinline>
+        <source src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/Video/Rodamientos_Castalia.mov" type="video/mp4">
+      </video>
+      <div class="proj-info">
+        <div class="proj-cat">Spot de Marca</div>
+        <div class="proj-title">CASTALIA</div>
+      </div>
+      <div class="proj-arrow">↗</div>
     </div>
-    <div class="service-card reveal d2">
-      <span class="service-num">03</span>
-      <div class="service-title">VIDEOCLIPS</div>
-      <p class="service-text">Producción visual para artistas y músicos. Narrativa, estética, dirección de arte y postproducción completa.</p>
-      <span class="service-tag">Artistas · Música</span>
+
+    <!-- PROYECTO 3 — Videoclip -->
+    <div class="proj-item reveal">
+      <video autoplay muted loop playsinline>
+        <source src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/Video/PEAK DEL 19 BY LAVADOM [VIDEOCLIP OFICIAL].m4a" type="video/mp4">
+      </video>
+      <div class="proj-info">
+        <div class="proj-cat">Videoclip</div>
+        <div class="proj-title">PEAK DEL 19 — LAVADOM</div>
+      </div>
+      <div class="proj-arrow">↗</div>
     </div>
-    <div class="service-card reveal d1">
-      <span class="service-num">04</span>
-      <div class="service-title">FOTOGRAFÍA</div>
-      <p class="service-text">Sesiones de producto, retrato, lifestyle y editorial. Imágenes con luz y composición cinematográficas listas para usar.</p>
-      <span class="service-tag">Editorial · Producto</span>
+
+    <!-- PROYECTO 4 — Cobertura de Evento -->
+    <div class="proj-item reveal">
+      <video autoplay muted loop playsinline>
+        <source src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/Video/DONE_TECHFEST.mov" type="video/mp4">
+      </video>
+      <div class="proj-info">
+        <div class="proj-cat">Cobertura de Evento</div>
+        <div class="proj-title">TECHFEST</div>
+      </div>
+      <div class="proj-arrow">↗</div>
     </div>
-    <div class="service-card reveal d2">
-      <span class="service-num">05</span>
-      <div class="service-title">AFTERMOVIES & EVENTOS</div>
-      <p class="service-text">Captura y montaje de eventos, lanzamientos, conciertos y activaciones de marca con narrativa emocional real.</p>
-      <span class="service-tag">Eventos · Lifestyle</span>
+
+    <!-- PROYECTO 5 — Videoclip -->
+    <div class="proj-item reveal d1">
+      <video autoplay muted loop playsinline>
+        <source src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/Video/Meridian.mp4" type="video/mp4">
+      </video>
+      <div class="proj-info">
+        <div class="proj-cat">Videoclip</div>
+        <div class="proj-title">MERIDIAN</div>
+      </div>
+      <div class="proj-arrow">↗</div>
     </div>
-    <div class="service-card reveal d3">
-      <span class="service-num">06</span>
-      <div class="service-title">PACKS INFLUENCERS</div>
-      <p class="service-text">Contenido visual periódico para creadores: shooting, reels y b-roll premium para alimentar tu presencia digital.</p>
-      <span class="service-tag">Creadores · YouTube</span>
+
+    <!-- PROYECTO 6 — Aftermovie -->
+    <div class="proj-item reveal d2">
+      <video autoplay muted loop playsinline>
+        <source src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/Video/LOS%20YAKIS%20aftermovie.mp4">
+      </video>
+      <div class="proj-info">
+        <div class="proj-cat">Aftermovie</div>
+        <div class="proj-title">LOS YAKIS</div>
+      </div>
+      <div class="proj-arrow">↗</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALERÍA FOTOGRAFÍA -->
+<section class="gallery" id="galeria">
+  <div class="portfolio-intro">
+    <div>
+      <div class="section-label reveal">Fotografía</div>
+      <h2 class="reveal d1">GALERÍA</h2>
+    </div>
+    <p class="portfolio-desc reveal d2">Imágenes con luz y composición cinematográficas. Retrato, lifestyle, editorial y producto.</p>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item reveal"><img src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/img/Futbol1.jpg" alt="Cobertura deportiva — Valencia CF"></div>
+    <div class="gallery-item reveal d1"><img src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/img/Retrato2.jpeg" alt="Retrato editorial"></div>
+    <div class="gallery-item reveal d2"><img src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/img/Retrato1.jpeg" alt="Retrato editorial"></div>
+    <div class="gallery-item reveal d3"><img src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/img/Retrato3.jpg" alt="Retrato editorial"></div>
+    <div class="gallery-item reveal"><img src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/img/Bodegon2.jpg" alt="Producto — cerámica artesanal"></div>
+    <div class="gallery-item reveal d1"><img src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/img/Bodegon1.jpg" alt="Producto — cerámica artesanal"></div>
+    <div class="gallery-item reveal d2"><img src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/img/Bodegon3.jpg" alt="Producto — cerámica artesanal"></div>
+    <div class="gallery-item reveal d3"><img src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/img/Futbol3.jpg" alt="Cobertura deportiva — Valencia CF"></div>
+    <div class="gallery-item reveal"><img src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/img/Futbol4.jpg" alt="Cobertura deportiva — Valencia CF"></div>
+    <div class="gallery-item reveal d1"><img src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/img/Futbol5.jpg" alt="Cobertura deportiva — Valencia CF"></div>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section class="about" id="sobre-mi">
+  <div class="section-label reveal">Sobre mí</div>
+  <h2 class="reveal d1">QUIÉN ESTÁ<br>DETRÁS DE LA<br>CÁMARA</h2>
+
+  <div class="about-grid">
+    <div class="about-photo reveal d1">
+      <div class="about-photo-frame">
+        <img src="https://pub-f2d5a5e055a148268d08f45ad3135b97.r2.dev/Media/img/me.JPG" alt="Jauma Raw — Filmmaker & Fotógrafo">
+      </div>
+    </div>
+    <div class="about-text reveal d2">
+      <p>Soy <strong>Jauma</strong>, filmmaker y fotógrafo afincado en Madrid. Llevo años contando historias a través de la imagen: spots de marca, videoclips, eventos, retratos y producto, siempre con la misma obsesión por la luz, la composición y el ritmo.</p>
+      <p>Cada proyecto empieza con una pregunta: ¿qué quiere transmitir esta marca o esta persona? A partir de ahí construyo una narrativa visual con identidad propia, cuidando cada detalle desde la preproducción hasta la entrega final.</p>
+      <p>Si buscas contenido que destaque de verdad, hablemos.</p>
     </div>
   </div>
 </section>
@@ -477,7 +1056,7 @@
   <div class="process-steps">
     <div class="step reveal">
       <div class="step-num">01 — BRIEFING</div>
-      <div class="step-title">Entendemos tu objetivo</div>
+      <div class="step-title">Comprendo tu objetivo</div>
       <p class="step-text">Primera llamada para entender qué necesitas, a quién va dirigido y qué quieres conseguir con el contenido.</p>
     </div>
     <div class="step reveal d1">
@@ -498,41 +1077,116 @@
   </div>
 </section>
 
-<!-- PARA QUIÉN -->
-<section class="clients" id="clientes">
-  <div class="section-label reveal">Para quién</div>
-  <h2 class="reveal d1">TRABAJO CON</h2>
-  <div class="client-types">
-    <div class="client-pill reveal">Marcas y empresas</div>
-    <div class="client-pill reveal d1">Influencers y creadores</div>
-    <div class="client-pill reveal d2">Artistas y músicos</div>
-    <div class="client-pill reveal d3">Actores y agencias</div>
-    <div class="client-pill reveal">Startups</div>
-    <div class="client-pill reveal d1">Restaurantes y locales</div>
-    <div class="client-pill reveal d2">Moda y lifestyle</div>
-    <div class="client-pill reveal d3">Eventos y festivales</div>
-  </div>
-  <div class="clients-cta">
-    <p class="reveal">¿Tienes un proyecto?<br><em>Hablemos.</em></p>
-    <a href="#contacto" class="btn-primary reveal d2">Contactar ahora</a>
-  </div>
-</section>
-
 <!-- CONTACTO -->
 <section class="contact" id="contacto">
-  <div class="section-label reveal" style="justify-content:center">Contacto</div>
-  <h2 class="reveal d1">EMPECEMOS A<br>TRABAJAR</h2>
-  <p class="contact-sub reveal d2">Cuéntame tu proyecto y te respondo en menos de 24h con una propuesta.</p>
-  <a href="mailto:hola@jaumaraw.com" class="contact-email reveal d3">hola@jaumaraw.com</a>
-  <div class="contact-links reveal">
-    <a href="https://instagram.com/jauma_raw" target="_blank">@jauma_raw</a>
-    <a href="#">Portfolio</a>
-    <a href="#">YouTube</a>
+
+  <div class="contact-header">
+    <div class="section-label reveal" style="justify-content:center">Contacto</div>
+    <h2 class="reveal d1">EMPECEMOS A<br>TRABAJAR</h2>
+    <p class="contact-sub reveal d2">Cuéntame tu proyecto y te respondo<br>en menos de 24h con una propuesta.</p>
   </div>
+
+  <div class="contact-form-wrap reveal d3">
+
+    <form class="contact-form" id="contactForm" novalidate>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cf-name">Nombre</label>
+          <div class="field-line">
+            <input type="text" id="cf-name" name="name" placeholder="Tu nombre" required autocomplete="name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cf-email">Email</label>
+          <div class="field-line">
+            <input type="email" id="cf-email" name="email" placeholder="hola@tuempresa.com" required autocomplete="email">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cf-service">Tipo de proyecto</label>
+          <div class="field-line">
+            <select id="cf-service" name="service">
+              <option value="">¿Qué necesitas?</option>
+              <option value="Contenido de marca">Contenido de marca</option>
+              <option value="Reels &amp; Social">Reels &amp; Social</option>
+              <option value="Videoclip">Videoclip</option>
+              <option value="Fotografía">Fotografía</option>
+              <option value="Aftermovie / Evento">Aftermovie / Evento</option>
+              <option value="Pack Influencer">Pack Influencer</option>
+              <option value="Otro">No lo tengo claro aún</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cf-budget">Presupuesto orientativo</label>
+          <div class="field-line">
+            <select id="cf-budget" name="budget">
+              <option value="">Rango estimado</option>
+              <option value="Menos de 500€">Menos de 500€</option>
+              <option value="500–1.500€">500 – 1.500€</option>
+              <option value="1.500–3.000€">1.500 – 3.000€</option>
+              <option value="3.000€+">3.000€ o más</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cf-msg">Cuéntame</label>
+        <div class="field-line">
+          <textarea id="cf-msg" name="message" placeholder="Describe tu proyecto: qué necesitas, cuándo, para qué plataforma y cualquier detalle relevante." required></textarea>
+        </div>
+      </div>
+
+      <div class="form-submit">
+        <span class="form-error" id="formError">No se pudo enviar. Inténtalo de nuevo o escribe a jaumaraw@gmail.com.</span>
+        <button type="submit" class="btn-send"><span>Enviar mensaje &nbsp;→</span></button>
+      </div>
+
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      <span class="form-success-icon">RECIBIDO</span>
+      <p>Gracias. Te respondo en menos de 24h.</p>
+    </div>
+
+    <div class="contact-meta">
+      <a href="mailto:jaumaraw@gmail.com" class="contact-email-link">jaumaraw@gmail.com</a>
+      <div class="contact-links">
+        <a href="https://instagram.com/jauma_raw" target="_blank">Instagram</a>
+        <!--<a href="#">Whatsapp</a>
+        <a href="#">LinkedIn</a>-->
+      </div>
+    </div>
+
+  </div>
+
 </section>
 
+<!-- LIGHTBOX FOTOS -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-close" id="lbClose" aria-label="Cerrar">✕</button>
+  <button class="lightbox-btn lightbox-prev" id="lbPrev" aria-label="Anterior">‹</button>
+  <img class="lightbox-img" id="lbImg" src="" alt="">
+  <button class="lightbox-btn lightbox-next" id="lbNext" aria-label="Siguiente">›</button>
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+<!-- LIGHTBOX VÍDEOS -->
+<div class="lightbox" id="videoLightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-close" id="vlbClose" aria-label="Cerrar">✕</button>
+  <button class="lightbox-btn lightbox-prev" id="vlbPrev" aria-label="Anterior">‹</button>
+  <video class="lightbox-video" id="vlbVideo" controls playsinline></video>
+  <button class="lightbox-btn lightbox-next" id="vlbNext" aria-label="Siguiente">›</button>
+  <div class="lightbox-counter" id="vlbCounter"></div>
+</div>
+
 <footer>
-  <span>© 2025 Jauma Raw · Filmmaker & Photographer</span>
+  <span>© 2026 Jauma Raw · Filmmaker & Photographer</span>
   <span>Madrid, España</span>
 </footer>
 
@@ -549,6 +1203,163 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
   });
 });
+
+// LIGHTBOX
+(function () {
+  const imgs = Array.from(document.querySelectorAll('.gallery-item img'));
+  const lb   = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCtr = document.getElementById('lbCounter');
+  let idx = 0;
+
+  function open(i) {
+    idx = i;
+    lbImg.src = imgs[i].src;
+    lbImg.style.opacity = '1';
+    lbCtr.textContent = (i + 1) + ' / ' + imgs.length;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function nav(dir) {
+    idx = (idx + dir + imgs.length) % imgs.length;
+    lbImg.style.opacity = '0';
+    setTimeout(() => {
+      lbImg.src = imgs[idx].src;
+      lbCtr.textContent = (idx + 1) + ' / ' + imgs.length;
+      lbImg.style.opacity = '1';
+    }, 160);
+  }
+
+  imgs.forEach((img, i) => img.parentElement.addEventListener('click', () => open(i)));
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', () => nav(-1));
+  document.getElementById('lbNext').addEventListener('click', () => nav(1));
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  nav(-1);
+    if (e.key === 'ArrowRight') nav(1);
+  });
+})();
+
+// LIGHTBOX VÍDEOS
+(function () {
+  const items = Array.from(document.querySelectorAll('.proj-item'));
+  const lb     = document.getElementById('videoLightbox');
+  const lbVideo = document.getElementById('vlbVideo');
+  const lbCtr  = document.getElementById('vlbCounter');
+  let idx = 0;
+
+  function load(i) {
+    idx = i;
+    lbVideo.src = items[i].querySelector('source').src;
+    lbCtr.textContent = (i + 1) + ' / ' + items.length;
+  }
+
+  function open(i) {
+    load(i);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lbVideo.play();
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    lbVideo.pause();
+    lbVideo.removeAttribute('src');
+    lbVideo.load();
+    document.body.style.overflow = '';
+  }
+
+  function nav(dir) {
+    load((idx + dir + items.length) % items.length);
+    lbVideo.play();
+  }
+
+  items.forEach((item, i) => item.addEventListener('click', () => open(i)));
+  document.getElementById('vlbClose').addEventListener('click', close);
+  document.getElementById('vlbPrev').addEventListener('click', () => nav(-1));
+  document.getElementById('vlbNext').addEventListener('click', () => nav(1));
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  nav(-1);
+    if (e.key === 'ArrowRight') nav(1);
+  });
+})();
+
+// FORMULARIO DE CONTACTO
+(function () {
+  const form    = document.getElementById('contactForm');
+  const success = document.getElementById('formSuccess');
+  const error   = document.getElementById('formError');
+  const button  = form ? form.querySelector('.btn-send') : null;
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name    = document.getElementById('cf-name').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const service = document.getElementById('cf-service').value;
+    const budget  = document.getElementById('cf-budget').value;
+    const msg     = document.getElementById('cf-msg').value.trim();
+
+    if (!name || !email || !msg) {
+      const first = form.querySelector(':invalid') || form.querySelector('input[required]');
+      if (first) first.focus();
+      return;
+    }
+
+    error.style.display = 'none';
+    button.disabled = true;
+    button.querySelector('span').textContent = 'Enviando…';
+
+    fetch('https://formsubmit.co/ajax/jaumaraw@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: 'Proyecto: ' + (service || 'Consulta') + ' — ' + name,
+        _template: 'table',
+        _captcha: 'false',
+        _replyto: email,
+        Nombre: name,
+        Email: email,
+        'Tipo de proyecto': service || '—',
+        'Presupuesto orientativo': budget || '—',
+        Mensaje: msg
+      })
+    })
+    .then(res => { if (!res.ok) throw new Error('request failed'); })
+    .then(() => {
+      form.style.display = 'none';
+      success.style.display = 'block';
+    })
+    .catch(() => {
+      button.disabled = false;
+      button.querySelector('span').textContent = 'Enviar mensaje  →';
+      error.style.display = 'block';
+    });
+  });
+})();
+
+function toggleMute() {
+  const v = document.getElementById('heroVideo');
+  const icon = document.getElementById('muteIcon');
+  const label = document.getElementById('muteLabel');
+  if (!v) return;
+  v.muted = !v.muted;
+  icon.textContent  = v.muted ? '🔇' : '🔊';
+  label.textContent = v.muted ? 'Activar sonido' : 'Silenciar';
+}
 </script>
 </body>
 </html>
