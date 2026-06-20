@@ -433,6 +433,95 @@
     padding-right: 1.25rem;
   }
 
+  /* Combo de teléfono: código de país + número */
+  .phone-line { display: flex; gap: 0.85rem; align-items: flex-start; position: relative; }
+  .phone-line input { flex: 1; min-width: 0; }
+
+  .phone-code { position: relative; flex: 0 0 auto; }
+
+  .phone-code-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(200,169,110,0.18);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 0.6rem 0.15rem 0.8rem;
+    cursor: pointer;
+    transition: border-color 0.25s;
+  }
+
+  .phone-code-btn:hover { border-color: rgba(200,169,110,0.4); }
+  .phone-code.open .phone-code-btn { border-color: transparent; }
+
+  .phone-flag {
+    width: 22px;
+    height: 16px;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+    display: block;
+  }
+
+  .phone-code-caret { transition: transform 0.25s ease; flex-shrink: 0; }
+  .phone-code.open .phone-code-caret { transform: rotate(180deg); }
+
+  .phone-code-list {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    left: 0;
+    z-index: 20;
+    list-style: none;
+    width: 240px;
+    max-height: 280px;
+    overflow-y: auto;
+    background: #15150f;
+    border: 1px solid rgba(200,169,110,0.22);
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7);
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .phone-code.open .phone-code-list {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .phone-code-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--gray-light);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+
+  .phone-code-list li img {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .phone-code-list li span { margin-left: auto; color: var(--accent); font-size: 0.78rem; }
+  .phone-code-list li:hover { background: rgba(200,169,110,0.1); color: var(--white); }
+  .phone-code-list li.selected { color: var(--white); background: rgba(200,169,110,0.06); }
+
+  .phone-code-list::-webkit-scrollbar { width: 6px; }
+  .phone-code-list::-webkit-scrollbar-thumb { background: rgba(200,169,110,0.3); border-radius: 3px; }
+
   .field-line textarea { resize: none; min-height: 110px; line-height: 1.7; }
 
   /* botón enviar */
@@ -919,12 +1008,84 @@
 
     section { padding: 4rem 1.5rem; }
 
-    .hero { padding: 0 1.5rem 3rem; align-items: flex-end; }
-    .hero-content { margin-bottom: 6rem; }
-    .hero-desc { max-width: 100%; }
-    .hero-stats { left: 1.5rem; bottom: 6.5rem; }
-    .hero-mute-btn { bottom: 6.5rem; right: 1.5rem; padding: 0.45rem 0.8rem; font-size: 0.65rem; }
-    .hero-actions { flex-wrap: wrap; }
+    /* Desplegable de país como panel centrado, evita que se salga de pantalla */
+    .phone-code-list {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      right: auto;
+      width: min(85vw, 320px);
+      max-height: 70vh;
+      transform: translate(-50%, calc(-50% + 10px));
+    }
+    .phone-code.open .phone-code-list { transform: translate(-50%, -50%); }
+
+    .phone-code::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 19;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .phone-code.open::before { opacity: 1; pointer-events: auto; }
+
+    .hero {
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-end;
+      padding: 8rem 1.5rem 2rem;
+      min-height: 100vh;
+      min-height: 100svh;
+    }
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      margin-bottom: 0;
+      max-width: 100%;
+    }
+    .hero-label { margin-bottom: 0.75rem; }
+    h1 { font-size: clamp(2.75rem, 13vw, 4.5rem); margin-bottom: 0; }
+    .hero-desc { max-width: 100%; font-size: 0.95rem; margin-top: auto; padding-top: 1.5rem; margin-bottom: 1.75rem; }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.85rem;
+    }
+    .btn-primary { text-align: center; }
+    .btn-secondary { justify-content: center; padding: 0.85rem 0; border-top: 1px solid rgba(200,169,110,0.18); }
+    .btn-secondary::after { margin-left: 0.25rem; }
+
+    /* Stats y botón de sonido suben como elementos flotantes compactos junto al nav */
+    .hero-stats {
+      position: absolute;
+      top: 5.25rem;
+      right: 1.5rem;
+      left: auto;
+      bottom: auto;
+      flex-direction: row;
+      gap: 1rem;
+      text-align: right;
+    }
+    .stat-num { font-size: 1.3rem; }
+    .stat-label { text-align: right; font-size: 0.55rem; }
+
+    .hero-mute-btn {
+      top: 5.25rem;
+      bottom: auto;
+      left: 1.5rem;
+      right: auto;
+      width: 2.5rem;
+      height: 2.5rem;
+      padding: 0;
+      border-radius: 50%;
+      justify-content: center;
+    }
+    .hero-mute-btn #muteLabel { display: none; }
 
     .portfolio-intro { grid-template-columns: 1fr; gap: 1.5rem; }
     .portfolio-grid { grid-template-columns: 1fr; }
@@ -951,8 +1112,7 @@
   @media (max-width: 480px) {
     .gallery-grid { grid-template-columns: 1fr; }
     .gallery-item:first-child { aspect-ratio: 4/5; }
-    .hero-stats { flex-direction: row; gap: 1.5rem; bottom: auto; top: 5.5rem; left: 1.5rem; }
-    .stat-label { text-align: left; }
+    .hero-stats { gap: 1.25rem; }
   }
 </style>
 </head>
@@ -1209,6 +1369,39 @@
 
       <div class="form-row">
         <div class="form-group">
+          <label for="cf-phone">Teléfono</label>
+          <div class="field-line phone-line">
+            <div class="phone-code" id="phoneCode">
+              <button type="button" class="phone-code-btn" id="phoneCodeBtn" aria-haspopup="listbox" aria-expanded="false">
+                <img class="phone-flag" id="phoneFlag" src="https://flagcdn.com/24x18/es.png" srcset="https://flagcdn.com/48x36/es.png 2x" alt="">
+                <span id="phoneCodeVal">+34</span>
+                <svg class="phone-code-caret" width="9" height="6" viewBox="0 0 10 6"><path d="M0 0l5 5 5-5" stroke="#c8a96e" stroke-width="1.3" fill="none"/></svg>
+              </button>
+              <ul class="phone-code-list" id="phoneCodeList" role="listbox" tabindex="-1">
+                <li role="option" data-code="+34" data-flag="es" class="selected"><img src="https://flagcdn.com/24x18/es.png" alt="">España <span>+34</span></li>
+                <li role="option" data-code="+1" data-flag="us"><img src="https://flagcdn.com/24x18/us.png" alt="">Estados Unidos <span>+1</span></li>
+                <li role="option" data-code="+44" data-flag="gb"><img src="https://flagcdn.com/24x18/gb.png" alt="">Reino Unido <span>+44</span></li>
+                <li role="option" data-code="+33" data-flag="fr"><img src="https://flagcdn.com/24x18/fr.png" alt="">Francia <span>+33</span></li>
+                <li role="option" data-code="+49" data-flag="de"><img src="https://flagcdn.com/24x18/de.png" alt="">Alemania <span>+49</span></li>
+                <li role="option" data-code="+39" data-flag="it"><img src="https://flagcdn.com/24x18/it.png" alt="">Italia <span>+39</span></li>
+                <li role="option" data-code="+351" data-flag="pt"><img src="https://flagcdn.com/24x18/pt.png" alt="">Portugal <span>+351</span></li>
+                <li role="option" data-code="+52" data-flag="mx"><img src="https://flagcdn.com/24x18/mx.png" alt="">México <span>+52</span></li>
+                <li role="option" data-code="+54" data-flag="ar"><img src="https://flagcdn.com/24x18/ar.png" alt="">Argentina <span>+54</span></li>
+                <li role="option" data-code="+55" data-flag="br"><img src="https://flagcdn.com/24x18/br.png" alt="">Brasil <span>+55</span></li>
+                <li role="option" data-code="+56" data-flag="cl"><img src="https://flagcdn.com/24x18/cl.png" alt="">Chile <span>+56</span></li>
+                <li role="option" data-code="+57" data-flag="co"><img src="https://flagcdn.com/24x18/co.png" alt="">Colombia <span>+57</span></li>
+                <li role="option" data-code="+51" data-flag="pe"><img src="https://flagcdn.com/24x18/pe.png" alt="">Perú <span>+51</span></li>
+                <li role="option" data-code="+58" data-flag="ve"><img src="https://flagcdn.com/24x18/ve.png" alt="">Venezuela <span>+58</span></li>
+                <li role="option" data-code="+593" data-flag="ec"><img src="https://flagcdn.com/24x18/ec.png" alt="">Ecuador <span>+593</span></li>
+                <li role="option" data-code="+591" data-flag="bo"><img src="https://flagcdn.com/24x18/bo.png" alt="">Bolivia <span>+591</span></li>
+                <li role="option" data-code="+598" data-flag="uy"><img src="https://flagcdn.com/24x18/uy.png" alt="">Uruguay <span>+598</span></li>
+                <li role="option" data-code="+595" data-flag="py"><img src="https://flagcdn.com/24x18/py.png" alt="">Paraguay <span>+595</span></li>
+              </ul>
+            </div>
+            <input type="tel" id="cf-phone" name="phone" placeholder="600 000 000" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
           <label for="cf-service">Tipo de proyecto</label>
           <div class="field-line">
             <select id="cf-service" name="service">
@@ -1223,17 +1416,18 @@
             </select>
           </div>
         </div>
-        <div class="form-group">
-          <label for="cf-budget">Presupuesto orientativo</label>
-          <div class="field-line">
-            <select id="cf-budget" name="budget">
-              <option value="">Rango estimado</option>
-              <option value="Menos de 500€">Menos de 500€</option>
-              <option value="500–1.500€">500 – 1.500€</option>
-              <option value="1.500–3.000€">1.500 – 3.000€</option>
-              <option value="3.000€+">3.000€ o más</option>
-            </select>
-          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cf-budget">Presupuesto orientativo</label>
+        <div class="field-line">
+          <select id="cf-budget" name="budget">
+            <option value="">Rango estimado</option>
+            <option value="Menos de 500€">Menos de 500€</option>
+            <option value="500–1.500€">500 – 1.500€</option>
+            <option value="1.500–3.000€">1.500 – 3.000€</option>
+            <option value="3.000€+">3.000€ o más</option>
+          </select>
         </div>
       </div>
 
@@ -1257,7 +1451,7 @@
     </div>
 
     <div class="contact-meta">
-      <a href="mailto:jaumaraw@gmail.com" class="contact-email-link">jaumaraw@gmail.com</a>
+      <a href="mailto:contacto@jaumaraw.com" class="contact-email-link">contacto@jaumaraw.com</a>
       <div class="contact-links">
         <a href="https://instagram.com/jauma_raw" target="_blank">Instagram</a>
         <!--<a href="#">Whatsapp</a>
@@ -1441,6 +1635,55 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 })();
 
+// DESPLEGABLE DE CÓDIGO DE PAÍS (TELÉFONO)
+(function () {
+  const wrap = document.getElementById('phoneCode');
+  if (!wrap) return;
+  const btn   = document.getElementById('phoneCodeBtn');
+  const list  = document.getElementById('phoneCodeList');
+  const flag  = document.getElementById('phoneFlag');
+  const valEl = document.getElementById('phoneCodeVal');
+  const items = Array.from(list.querySelectorAll('li'));
+
+  function close() {
+    wrap.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  function open() {
+    wrap.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+
+  btn.addEventListener('click', () => {
+    wrap.classList.contains('open') ? close() : open();
+  });
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const code = item.dataset.code;
+      const cc   = item.dataset.flag;
+      flag.src = `https://flagcdn.com/24x18/${cc}.png`;
+      flag.srcset = `https://flagcdn.com/48x36/${cc}.png 2x`;
+      valEl.textContent = code;
+      items.forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+      wrap.dataset.code = code;
+      close();
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!wrap.contains(e.target)) close();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') close();
+  });
+
+  wrap.dataset.code = '+34';
+})();
+
 // FORMULARIO DE CONTACTO
 (function () {
   const form    = document.getElementById('contactForm');
@@ -1454,6 +1697,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
     const name    = document.getElementById('cf-name').value.trim();
     const email   = document.getElementById('cf-email').value.trim();
+    const phoneCode = (document.getElementById('phoneCode').dataset.code) || '+34';
+    const phoneNum  = document.getElementById('cf-phone').value.trim();
+    const phone     = phoneNum ? (phoneCode + ' ' + phoneNum) : '';
     const service = document.getElementById('cf-service').value;
     const budget  = document.getElementById('cf-budget').value;
     const msg     = document.getElementById('cf-msg').value.trim();
@@ -1478,6 +1724,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         _replyto: email,
         Nombre: name,
         Email: email,
+        Teléfono: phone || '—',
         'Tipo de proyecto': service || '—',
         'Presupuesto orientativo': budget || '—',
         Mensaje: msg
