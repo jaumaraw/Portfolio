@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jauma Raw — Filmmaker & Photographer Madrid</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<title>Jauma Raw — Food Cinema & Storytelling</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
     --black: #0a0a0a;
-    --white: #f5f2ed;
-    --cream: #e8e3da;
-    --accent: #c8a96e;
-    --accent-dark: #9d7d47;
-    --gray-mid: #3a3a38;
-    --gray-light: #6b6b68;
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
+    --white: #fafafa;
+    --accent: #d4a574;
+    --accent-dark: #a67c52;
+    --gray-dark: #1a1a1a;
+    --gray-mid: #2d2d2d;
+    --gray-light: #8a8a8a;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
   }
 
   html { scroll-behavior: smooth; }
@@ -26,7 +26,7 @@
     background: var(--black);
     color: var(--white);
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.6;
     overflow-x: hidden;
   }
@@ -39,52 +39,43 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.25rem 3rem;
-    background: rgba(10,10,10,0.9);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(200,169,110,0.12);
+    padding: 1.5rem 4rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(212,165,116,0.08);
   }
 
   .logo {
     font-family: var(--font-display);
-    font-size: 1.6rem;
-    letter-spacing: 0.08em;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
     color: var(--white);
     text-decoration: none;
   }
 
   .logo span { color: var(--accent); }
 
-  nav ul { display: flex; gap: 2.5rem; list-style: none; }
+  nav ul { display: flex; gap: 3rem; list-style: none; }
 
   nav ul a {
     color: var(--gray-light);
     text-decoration: none;
-    font-size: 0.82rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
     font-weight: 400;
-    transition: color 0.2s;
+    transition: color 0.3s;
   }
 
   nav ul a:hover { color: var(--accent); }
-
-  .nav-cta {
-    background: var(--accent) !important;
-    color: var(--black) !important;
-    padding: 0.5rem 1.25rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.08em !important;
-  }
-
-  .nav-cta:hover { background: var(--cream) !important; }
 
   /* HERO */
   .hero {
     min-height: 100vh;
     display: flex;
-    align-items: flex-end;
-    padding: 0 3rem 5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 4rem;
     position: relative;
     overflow: hidden;
   }
@@ -92,462 +83,638 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(200,169,110,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(200,169,110,0.04) 0%, transparent 60%);
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(212,165,116,0.04) 0%, transparent 70%);
   }
 
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(200,169,110,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,169,110,0.04) 1px, transparent 1px);
-    background-size: 80px 80px;
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    text-align: center;
   }
-
-  .hero-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .hero-label::before {
-    content: '';
-    display: block;
-    width: 32px;
-    height: 1px;
-    background: var(--accent);
-  }
-
-  .hero-content { position: relative; z-index: 1; max-width: 900px; }
 
   h1 {
     font-family: var(--font-display);
-    font-size: clamp(4rem, 10vw, 9rem);
-    line-height: 0.92;
-    letter-spacing: 0.02em;
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 em { color: var(--accent); font-style: normal; }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--gray-light);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 3rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-cta {
+    background: var(--accent);
+    color: var(--black);
+    padding: 0.95rem 2.5rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    border: 2px solid var(--accent);
+  }
+
+  .hero-cta:hover {
+    background: transparent;
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* GALLERY */
+  .gallery {
+    padding: 8rem 4rem;
+    background: var(--black);
+    position: relative;
+  }
+
+  .gallery-header {
+    max-width: 800px;
+    margin-bottom: 4rem;
+  }
+
+  .gallery-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+
+  .gallery h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+
+  .gallery-intro {
+    font-size: 1rem;
+    color: var(--gray-light);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .video-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 9/16;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    group: group;
+  }
+
+  .video-card:hover { transform: scale(1.02); }
+
+  .video-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .video-card:hover video { transform: scale(1.05); }
+
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    transition: all 0.4s;
+  }
+
+  .video-card:hover .video-overlay {
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.85) 100%);
+  }
+
+  .video-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .video-type {
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(212,165,116,0.2);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.4s;
+  }
+
+  .play-icon::after {
+    content: '▶';
+    color: var(--accent);
+    font-size: 1.2rem;
+    margin-left: 2px;
+  }
+
+  .video-card:hover .play-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  /* ABOUT SECTION */
+  .about {
+    padding: 8rem 4rem;
+    background: var(--gray-dark);
+  }
+
+  .about-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .about-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .about h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
     margin-bottom: 2rem;
   }
 
-  h1 em { color: var(--accent); font-style: normal; display: block; }
+  .about-text {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
 
-  .hero-desc {
-    font-size: 1.05rem;
+  .about-text p {
+    font-size: 1rem;
     color: var(--gray-light);
-    max-width: 480px;
-    line-height: 1.75;
+    line-height: 1.85;
+    font-weight: 300;
+  }
+
+  .about-text p strong { color: var(--accent); font-weight: 500; }
+
+  /* SERVICES */
+  .services {
+    padding: 8rem 4rem;
+    background: var(--black);
+  }
+
+  .services-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .services-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .services h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 4rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .service-item {
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(212,165,116,0.15);
+    transition: all 0.3s;
+  }
+
+  .service-item:hover {
+    border-color: var(--accent);
+    background: rgba(212,165,116,0.03);
+  }
+
+  .service-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+
+  .service-item p {
+    font-size: 0.9rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* CONTACT */
+  .contact {
+    padding: 8rem 4rem;
+    background: var(--gray-dark);
+    text-align: center;
+  }
+
+  .contact-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .contact-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact p {
+    font-size: 1rem;
+    color: var(--gray-light);
+    line-height: 1.8;
     font-weight: 300;
     margin-bottom: 2.5rem;
   }
 
-  .hero-actions { display: flex; gap: 1rem; align-items: center; }
-
-  .btn-primary {
-    background: var(--accent);
-    color: var(--black);
-    padding: 0.85rem 2rem;
-    font-family: var(--font-body);
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-    display: inline-block;
-  }
-
-  .btn-primary:hover { background: var(--cream); transform: translateY(-1px); }
-
-  .btn-secondary {
-    color: var(--gray-light);
-    font-size: 0.82rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: color 0.2s;
-  }
-
-  .btn-secondary:hover { color: var(--white); }
-  .btn-secondary::after { content: '→'; }
-
-  .hero-stats {
-    position: absolute;
-    right: 3rem;
-    bottom: 5rem;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    text-align: right;
-  }
-
-  .stat-num { font-family: var(--font-display); font-size: 2.2rem; color: var(--white); line-height: 1; }
-  .stat-label { font-size: 0.7rem; color: var(--gray-light); letter-spacing: 0.15em; text-transform: uppercase; }
-
-  /* SECTIONS */
-  section { padding: 6rem 3rem; }
-
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .section-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
-
-  h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    line-height: 0.95;
-    letter-spacing: 0.02em;
-    margin-bottom: 1rem;
-  }
-
-  /* SERVICIOS */
-  .services { background: var(--black); border-top: 1px solid rgba(200,169,110,0.08); }
-
-  .services-intro {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: end;
-    margin-bottom: 4rem;
-  }
-
-  .services-desc { color: var(--gray-light); font-size: 1rem; font-weight: 300; line-height: 1.8; max-width: 420px; }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(200,169,110,0.08);
-  }
-
-  .service-card {
-    background: var(--black);
-    padding: 2.5rem 2rem;
-    transition: background 0.3s;
-  }
-
-  .service-card:hover { background: #141412; }
-
-  .service-num {
-    font-family: var(--font-display);
-    font-size: 3.5rem;
-    color: rgba(200,169,110,0.12);
-    line-height: 1;
-    margin-bottom: 1.25rem;
-    display: block;
-    transition: color 0.3s;
-  }
-
-  .service-card:hover .service-num { color: rgba(200,169,110,0.25); }
-
-  .service-title { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.04em; margin-bottom: 0.75rem; }
-
-  .service-text { font-size: 0.88rem; color: var(--gray-light); line-height: 1.7; font-weight: 300; }
-
-  .service-tag {
-    display: inline-block;
-    margin-top: 1.5rem;
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid rgba(200,169,110,0.3);
-    padding: 0.3rem 0.75rem;
-  }
-
-  /* PROCESO */
-  .process { background: #0d0d0b; }
-
-  .process-steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    margin-top: 4rem;
-  }
-
-  .step { padding-top: 2rem; border-top: 1px solid rgba(200,169,110,0.2); }
-  .step-num { font-family: var(--font-display); font-size: 1rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 1rem; }
-  .step-title { font-size: 1.05rem; font-weight: 500; margin-bottom: 0.5rem; }
-  .step-text { font-size: 0.85rem; color: var(--gray-light); font-weight: 300; line-height: 1.7; }
-
-  /* CLIENTES */
-  .clients { background: var(--black); border-top: 1px solid rgba(200,169,110,0.08); }
-
-  .client-types { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.5rem; }
-
-  .client-pill {
-    border: 1px solid rgba(200,169,110,0.25);
-    padding: 0.6rem 1.5rem;
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
-    color: var(--cream);
-    font-weight: 300;
-    transition: border-color 0.2s, color 0.2s;
-  }
-
-  .client-pill:hover { border-color: var(--accent); color: var(--accent); }
-
-  .clients-cta {
-    margin-top: 4rem;
-    padding-top: 3rem;
-    border-top: 1px solid rgba(200,169,110,0.08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .clients-cta p { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 3rem); line-height: 1.1; max-width: 500px; }
-  .clients-cta p em { color: var(--accent); font-style: normal; }
-
-  /* CONTACTO */
-  .contact {
-    background: #0d0d0b;
-    border-top: 1px solid rgba(200,169,110,0.08);
-    text-align: center;
-    padding: 7rem 3rem;
-  }
-
-  .contact h2 { margin-bottom: 1rem; }
-
-  .contact-sub {
-    color: var(--gray-light);
-    font-size: 1rem;
-    font-weight: 300;
-    margin-bottom: 3rem;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.7;
-  }
-
   .contact-email {
     font-family: var(--font-display);
-    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
     color: var(--accent);
     text-decoration: none;
-    letter-spacing: 0.04em;
-    display: block;
+    font-weight: 600;
+    display: inline-block;
     margin-bottom: 3rem;
-    transition: color 0.2s;
+    transition: color 0.3s;
+    letter-spacing: -0.01em;
   }
 
   .contact-email:hover { color: var(--white); }
 
-  .contact-links { display: flex; justify-content: center; gap: 2.5rem; }
+  .contact-social {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
 
-  .contact-links a {
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
+  .contact-social a {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--gray-light);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.3s;
+    font-weight: 400;
   }
 
-  .contact-links a:hover { color: var(--accent); }
+  .contact-social a:hover { color: var(--accent); }
 
   /* FOOTER */
   footer {
-    padding: 1.5rem 3rem;
-    border-top: 1px solid rgba(200,169,110,0.08);
+    padding: 2.5rem 4rem;
+    border-top: 1px solid rgba(212,165,116,0.08);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 0.8rem;
+    color: var(--gray-light);
+    letter-spacing: 0.05em;
   }
 
-  footer span { font-size: 0.78rem; color: var(--gray-light); letter-spacing: 0.06em; }
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.7s ease forwards;
+  }
 
-  /* REVEAL */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
-  .d1 { transition-delay: 0.1s; }
-  .d2 { transition-delay: 0.22s; }
-  .d3 { transition-delay: 0.34s; }
-  .d4 { transition-delay: 0.46s; }
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 2rem; }
+    nav ul { gap: 1.5rem; }
+    .hero, .gallery, .about, .services, .contact { padding: 4rem 2rem; }
+    .gallery-grid { gap: 1.5rem; }
+    .about-text { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; }
+  }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#" class="logo">JAUMA<span>.</span>RAW</a>
+  <a href="#" class="logo">JAUMA<span>.</span></a>
   <ul>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#about">Sobre mí</a></li>
     <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#proceso">Proceso</a></li>
-    <li><a href="#clientes">Para quién</a></li>
-    <li><a href="#contacto" class="nav-cta">Hablemos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
   <div class="hero-content">
-    <div class="hero-label">Filmmaker · Fotógrafo · Madrid</div>
-    <h1>CONTENIDO<em>QUE</em>IMPACTA</h1>
-    <p class="hero-desc">Creo piezas audiovisuales con identidad propia para marcas, artistas, influencers y empresas que quieren diferenciarse de verdad.</p>
-    <div class="hero-actions">
-      <a href="#contacto" class="btn-primary">Empezar un proyecto</a>
-      <a href="#servicios" class="btn-secondary">Ver servicios</a>
-    </div>
+    <h1><em>FOOD</em> CINEMA</h1>
+    <p class="hero-desc">Narrativas visuales que transforman la experiencia gastronómica en historias cinematográficas. Cada restaurante merece un retrato único.</p>
+    <a href="#portfolio" class="hero-cta">Ver proyectos</a>
   </div>
-  <div class="hero-stats">
-    <div>
-      <div class="stat-num">4K</div>
-      <div class="stat-label">Resolución máx.</div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="portfolio">
+  <div class="gallery-header">
+    <div class="gallery-label">Trabajos recientes</div>
+    <h2>Historias de <em>Restaurantes</em></h2>
+    <p class="gallery-intro">Cada video es una conversación con la identidad del lugar. Capturamos atmósfera, técnica culinaria y la energía que define cada espacio.</p>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="video-card" onclick="playVideo(this)">
+      <video muted preload="metadata">
+        <source src="../../../RAW/Portfo/Media/Video/Portugal/TOP/TOP_HOST/TIMEOUT.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay">
+        <div class="video-type">Proyección visual</div>
+        <div class="video-title">TIMEOUT</div>
+      </div>
+      <div class="play-icon"></div>
     </div>
-    <div>
-      <div class="stat-num">MAD</div>
-      <div class="stat-label">Base · España</div>
+
+    <div class="video-card" onclick="playVideo(this)">
+      <video muted preload="metadata">
+        <source src="../../../RAW/Portfo/Media/Video/Portugal/TOP/TOP_HOST/LAMASSA.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay">
+        <div class="video-type">Brand film</div>
+        <div class="video-title">LA MASSA</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card" onclick="playVideo(this)">
+      <video muted preload="metadata">
+        <source src="../../../RAW/Portfo/Media/Video/Portugal/TOP/TOP_HOST/INFAME_CENA.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay">
+        <div class="video-type">Cinematic</div>
+        <div class="video-title">INFAME · CENA</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card" onclick="playVideo(this)">
+      <video muted preload="metadata">
+        <source src="../../../RAW/Portfo/Media/Video/Portugal/TOP/TOP_HOST/BAHÍABEACH_V1.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay">
+        <div class="video-type">Lifestyle</div>
+        <div class="video-title">BAHÍA BEACH</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card" onclick="playVideo(this)">
+      <video muted preload="metadata">
+        <source src="../../../RAW/Portfo/Media/Video/Portugal/TOP/TOP_HOST/Comporta Flavors.mov" type="video/quicktime">
+      </video>
+      <div class="video-overlay">
+        <div class="video-type">Concept</div>
+        <div class="video-title">Comporta Flavors</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card" onclick="playVideo(this)">
+      <video muted preload="metadata">
+        <source src="../../../RAW/Portfo/Media/Video/Portugal/TOP/TOP_HOST/ALCHEMIEVF.mov" type="video/quicktime">
+      </video>
+      <div class="video-overlay">
+        <div class="video-type">Cinematic</div>
+        <div class="video-title">ALCHEMIE</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card" onclick="playVideo(this)">
+      <video muted preload="metadata">
+        <source src="../../../RAW/Portfo/Media/Video/Portugal/TOP/TOP_HOST/Tasca Jota on Fire.mov" type="video/quicktime">
+      </video>
+      <div class="video-overlay">
+        <div class="video-type">Energy</div>
+        <div class="video-title">Tasca Jota</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card" onclick="playVideo(this)">
+      <video muted preload="metadata">
+        <source src="../../../RAW/Portfo/Media/Video/Portugal/TOP/TOP_HOST/INFAME_BREAKFAST.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay">
+        <div class="video-type">Lifestyle</div>
+        <div class="video-title">INFAME · DESAYUNO</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card" onclick="playVideo(this)">
+      <video muted preload="metadata">
+        <source src="../../../RAW/Portfo/Media/Video/Portugal/TOP/TOP_HOST/DOLIVA.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay">
+        <div class="video-type">Cinematic</div>
+        <div class="video-title">D'OLIVA</div>
+      </div>
+      <div class="play-icon"></div>
     </div>
   </div>
 </section>
 
-<!-- SERVICIOS -->
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-content">
+    <div class="about-label">¿Por qué diferente?</div>
+    <h2>No es solo video. Es <em>experiencia</em>.</h2>
+    <div class="about-text">
+      <p>Trabajamos en <strong>Portugal y España</strong> capturando la esencia real de cada espacio. No usamos templates, ni stock footage. Cada proyecto es rodaje in situ, concepto único y postproducción cinema-grade que eleva la percepción del lugar.</p>
+      <p>Nuestro enfoque: <strong>luz natural, movimiento de cámara intencional y narrativa visual</strong> que conecta al espectador con la atmósfera del restaurante. El resultado es un activo premium que funciona en redes, web y marketing presencial.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
 <section class="services" id="servicios">
-  <div class="services-intro">
-    <div>
-      <div class="section-label reveal">Servicios</div>
-      <h2 class="reveal d1">LO QUE<br>PUEDO HACER<br>POR TI</h2>
-    </div>
-    <p class="services-desc reveal d2">No produzco vídeos genéricos. Cada pieza tiene concepto, ritmo y narrativa pensada para tu audiencia y tu objetivo concreto.</p>
-  </div>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <span class="service-num">01</span>
-      <div class="service-title">CONTENIDO DE MARCA</div>
-      <p class="service-text">Spots, brand films y piezas audiovisuales que cuentan quién eres y por qué importas. Para Instagram, web o campañas de marca.</p>
-      <span class="service-tag">Branded Content</span>
-    </div>
-    <div class="service-card reveal d1">
-      <span class="service-num">02</span>
-      <div class="service-title">REELS & SOCIAL</div>
-      <p class="service-text">Vídeo vertical optimizado para Instagram y TikTok. Hook, ritmo de montaje y música pensados para enganchar desde el primer segundo.</p>
-      <span class="service-tag">Instagram · TikTok</span>
-    </div>
-    <div class="service-card reveal d2">
-      <span class="service-num">03</span>
-      <div class="service-title">VIDEOCLIPS</div>
-      <p class="service-text">Producción visual para artistas y músicos. Narrativa, estética, dirección de arte y postproducción completa.</p>
-      <span class="service-tag">Artistas · Música</span>
-    </div>
-    <div class="service-card reveal d1">
-      <span class="service-num">04</span>
-      <div class="service-title">FOTOGRAFÍA</div>
-      <p class="service-text">Sesiones de producto, retrato, lifestyle y editorial. Imágenes con luz y composición cinematográficas listas para usar.</p>
-      <span class="service-tag">Editorial · Producto</span>
-    </div>
-    <div class="service-card reveal d2">
-      <span class="service-num">05</span>
-      <div class="service-title">AFTERMOVIES & EVENTOS</div>
-      <p class="service-text">Captura y montaje de eventos, lanzamientos, conciertos y activaciones de marca con narrativa emocional real.</p>
-      <span class="service-tag">Eventos · Lifestyle</span>
-    </div>
-    <div class="service-card reveal d3">
-      <span class="service-num">06</span>
-      <div class="service-title">PACKS INFLUENCERS</div>
-      <p class="service-text">Contenido visual periódico para creadores: shooting, reels y b-roll premium para alimentar tu presencia digital.</p>
-      <span class="service-tag">Creadores · YouTube</span>
+  <div class="services-content">
+    <div class="services-label">Servicios</div>
+    <h2>Lo que ofrezco</h2>
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-icon">📹</div>
+        <h3>Brand Films</h3>
+        <p>Película de concepto que narra la identidad, filosofía y experiencia del restaurante. Formato largo (2-4 min) listo para web y redes.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">✨</div>
+        <h3>Reels & Social</h3>
+        <p>Contenido vertical optimizado para Instagram, TikTok y YouTube Shorts. Ritmo visual rápido, hooks efectivos y branding consistente.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">🎬</div>
+        <h3>Aftermovies</h3>
+        <p>Captura y edición de eventos, presentaciones, lanzamientos. Narrativa emocional que convierte momentos en recuerdos visuales.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">📸</div>
+        <h3>Fotografía Culinaria</h3>
+        <p>Shooting de platos, detalles, espacios. Imágenes con grading cinematográfico listas para marketing y redes.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">🎥</div>
+        <h3>B-Roll Premiun</h3>
+        <p>Banco de material grabado para que uses en tus propios contenidos. Clips cortos, loopables y de alta calidad.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">🎞️</div>
+        <h3>Packs Mensuales</h3>
+        <p>Servicio recurrente: 1-2 reels mensuales + fotografía. Ideal para restaurantes que quieren presencia digital constante.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PROCESO -->
-<section class="process" id="proceso">
-  <div class="section-label reveal">Cómo trabajo</div>
-  <h2 class="reveal d1">EL PROCESO</h2>
-  <div class="process-steps">
-    <div class="step reveal">
-      <div class="step-num">01 — BRIEFING</div>
-      <div class="step-title">Entendemos tu objetivo</div>
-      <p class="step-text">Primera llamada para entender qué necesitas, a quién va dirigido y qué quieres conseguir con el contenido.</p>
-    </div>
-    <div class="step reveal d1">
-      <div class="step-num">02 — CONCEPTO</div>
-      <div class="step-title">Desarrollamos la idea</div>
-      <p class="step-text">Propuesta creativa con concepto visual, referencias estéticas, plan de rodaje y presupuesto cerrado.</p>
-    </div>
-    <div class="step reveal d2">
-      <div class="step-num">03 — PRODUCCIÓN</div>
-      <div class="step-title">Rodamos y fotografiamos</div>
-      <p class="step-text">Dirección, cámara, iluminación y captura del material con equipo Sony profesional en Madrid.</p>
-    </div>
-    <div class="step reveal d3">
-      <div class="step-num">04 — ENTREGA</div>
-      <div class="step-title">Piezas listas para publicar</div>
-      <p class="step-text">Edición, color grading y entrega en los formatos exactos que necesitas para cada plataforma.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PARA QUIÉN -->
-<section class="clients" id="clientes">
-  <div class="section-label reveal">Para quién</div>
-  <h2 class="reveal d1">TRABAJO CON</h2>
-  <div class="client-types">
-    <div class="client-pill reveal">Marcas y empresas</div>
-    <div class="client-pill reveal d1">Influencers y creadores</div>
-    <div class="client-pill reveal d2">Artistas y músicos</div>
-    <div class="client-pill reveal d3">Actores y agencias</div>
-    <div class="client-pill reveal">Startups</div>
-    <div class="client-pill reveal d1">Restaurantes y locales</div>
-    <div class="client-pill reveal d2">Moda y lifestyle</div>
-    <div class="client-pill reveal d3">Eventos y festivales</div>
-  </div>
-  <div class="clients-cta">
-    <p class="reveal">¿Tienes un proyecto?<br><em>Hablemos.</em></p>
-    <a href="#contacto" class="btn-primary reveal d2">Contactar ahora</a>
-  </div>
-</section>
-
-<!-- CONTACTO -->
+<!-- CONTACT -->
 <section class="contact" id="contacto">
-  <div class="section-label reveal" style="justify-content:center">Contacto</div>
-  <h2 class="reveal d1">EMPECEMOS A<br>TRABAJAR</h2>
-  <p class="contact-sub reveal d2">Cuéntame tu proyecto y te respondo en menos de 24h con una propuesta.</p>
-  <a href="mailto:hola@jaumaraw.com" class="contact-email reveal d3">hola@jaumaraw.com</a>
-  <div class="contact-links reveal">
-    <a href="https://instagram.com/jauma_raw" target="_blank">@jauma_raw</a>
-    <a href="#">Portfolio</a>
-    <a href="#">YouTube</a>
+  <div class="contact-content">
+    <div class="contact-label">Empecemos</div>
+    <h2>¿Tu restaurante necesita ser visto?</h2>
+    <p>Cuéntame sobre tu proyecto. Una llamada corta y te presento opciones de producción con presupuesto claro.</p>
+    <a href="mailto:hola@jaumaraw.com" class="contact-email">hola@jaumaraw.com</a>
+    <div class="contact-social">
+      <a href="https://instagram.com/jauma_raw" target="_blank">@jauma_raw</a>
+      <a href="https://www.youtube.com/@JaumaRaw" target="_blank">YouTube</a>
+      <a href="#">WhatsApp</a>
+    </div>
   </div>
 </section>
 
 <footer>
-  <span>© 2025 Jauma Raw · Filmmaker & Photographer</span>
-  <span>Madrid, España</span>
+  <span>© 2025 Jauma Raw · Food Cinema</span>
+  <span>Portugal & España</span>
 </footer>
 
 <script>
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-}, { threshold: 0.12 });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
+// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
   });
+});
+
+// Play video with sound on click
+function playVideo(card) {
+  const video = card.querySelector('video');
+  if (video.paused) {
+    video.muted = false;
+    video.play();
+  } else {
+    video.pause();
+    video.muted = true;
+  }
+}
+
+// Add fade-in animation on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.classList.contains('fade-in')) {
+      entry.target.classList.add('fade-in');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.service-item, .about-text p').forEach(el => {
+  observer.observe(el);
 });
 </script>
 </body>
