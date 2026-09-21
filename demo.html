@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jauma Raw — Food Cinema & Storytelling</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #fafafa;
+    --accent: #d4a574;
+    --accent-dark: #a67c52;
+    --gray-dark: #1a1a1a;
+    --gray-mid: #2d2d2d;
+    --gray-light: #8a8a8a;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(212,165,116,0.08);
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--accent); }
+
+  nav ul { display: flex; gap: 3rem; list-style: none; }
+
+  nav ul a {
+    color: var(--gray-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+
+  nav ul a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(212,165,116,0.04) 0%, transparent 70%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 em { color: var(--accent); font-style: normal; }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--gray-light);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 3rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-cta {
+    background: var(--accent);
+    color: var(--black);
+    padding: 0.95rem 2.5rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    border: 2px solid var(--accent);
+    cursor: pointer;
+  }
+
+  .hero-cta:hover {
+    background: transparent;
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* GALLERY */
+  .gallery {
+    padding: 8rem 4rem;
+    background: var(--black);
+    position: relative;
+  }
+
+  .gallery-header {
+    max-width: 800px;
+    margin-bottom: 4rem;
+  }
+
+  .gallery-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+
+  .gallery h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+
+  .gallery-intro {
+    font-size: 1rem;
+    color: var(--gray-light);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .video-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 9/16;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  }
+
+  .video-card:hover { transform: scale(1.02); }
+
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    transition: all 0.4s;
+  }
+
+  .video-card:hover .video-overlay {
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.85) 100%);
+  }
+
+  .video-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .video-type {
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(212,165,116,0.2);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.4s;
+  }
+
+  .play-icon::after {
+    content: '▶';
+    color: var(--accent);
+    font-size: 1.2rem;
+    margin-left: 2px;
+  }
+
+  .video-card:hover .play-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  /* ABOUT SECTION */
+  .about {
+    padding: 8rem 4rem;
+    background: var(--gray-dark);
+  }
+
+  .about-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .about-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .about h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+  }
+
+  .about-text {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    color: var(--gray-light);
+    line-height: 1.85;
+    font-weight: 300;
+  }
+
+  .about-text p strong { color: var(--accent); font-weight: 500; }
+
+  /* SERVICES */
+  .services {
+    padding: 8rem 4rem;
+    background: var(--black);
+  }
+
+  .services-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .services-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .services h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 4rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .service-item {
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(212,165,116,0.15);
+    transition: all 0.3s;
+  }
+
+  .service-item:hover {
+    border-color: var(--accent);
+    background: rgba(212,165,116,0.03);
+  }
+
+  .service-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+
+  .service-item p {
+    font-size: 0.9rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* CONTACT */
+  .contact {
+    padding: 8rem 4rem;
+    background: var(--gray-dark);
+    text-align: center;
+  }
+
+  .contact-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .contact-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact p {
+    font-size: 1rem;
+    color: var(--gray-light);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-email {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 3rem;
+    transition: color 0.3s;
+    letter-spacing: -0.01em;
+  }
+
+  .contact-email:hover { color: var(--white); }
+
+  .contact-social {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .contact-social a {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: 400;
+  }
+
+  .contact-social a:hover { color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    padding: 2.5rem 4rem;
+    border-top: 1px solid rgba(212,165,116,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--gray-light);
+    letter-spacing: 0.05em;
+  }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.7s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 2rem; }
+    nav ul { gap: 1.5rem; }
+    .hero, .gallery, .about, .services, .contact { padding: 4rem 2rem; }
+    .gallery-grid { gap: 1.5rem; }
+    .about-text { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">JAUMA<span>.</span></a>
+  <ul>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#about">Sobre mí</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1><em>FOOD</em> CINEMA</h1>
+    <p class="hero-desc">Narrativas visuales que transforman la experiencia gastronómica en historias cinematográficas. Cada restaurante merece un retrato único.</p>
+    <a href="#portfolio" class="hero-cta">Ver proyectos</a>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="portfolio">
+  <div class="gallery-header">
+    <div class="gallery-label">Trabajos recientes</div>
+    <h2>Historias de <em>Restaurantes</em></h2>
+    <p class="gallery-intro">Cada video es una conversación con la identidad del lugar. Capturamos atmósfera, técnica culinaria y la energía que define cada espacio.</p>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="video-card">
+      <div class="video-overlay">
+        <div class="video-type">Proyección visual</div>
+        <div class="video-title">TIMEOUT</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-overlay">
+        <div class="video-type">Brand film</div>
+        <div class="video-title">LA MASSA</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-overlay">
+        <div class="video-type">Cinematic</div>
+        <div class="video-title">INFAME · CENA</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-overlay">
+        <div class="video-type">Lifestyle</div>
+        <div class="video-title">BAHÍA BEACH</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-overlay">
+        <div class="video-type">Concept</div>
+        <div class="video-title">Comporta Flavors</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-overlay">
+        <div class="video-type">Cinematic</div>
+        <div class="video-title">ALCHEMIE</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-overlay">
+        <div class="video-type">Energy</div>
+        <div class="video-title">Tasca Jota</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-overlay">
+        <div class="video-type">Lifestyle</div>
+        <div class="video-title">INFAME · DESAYUNO</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-overlay">
+        <div class="video-type">Cinematic</div>
+        <div class="video-title">D'OLIVA</div>
+      </div>
+      <div class="play-icon"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-content">
+    <div class="about-label">¿Por qué diferente?</div>
+    <h2>No es solo video. Es <em>experiencia</em>.</h2>
+    <div class="about-text">
+      <p>Trabajamos en <strong>Portugal y España</strong> capturando la esencia real de cada espacio. No usamos templates, ni stock footage. Cada proyecto es rodaje in situ, concepto único y postproducción cinema-grade que eleva la percepción del lugar.</p>
+      <p>Nuestro enfoque: <strong>luz natural, movimiento de cámara intencional y narrativa visual</strong> que conecta al espectador con la atmósfera del restaurante. El resultado es un activo premium que funciona en redes, web y marketing presencial.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="servicios">
+  <div class="services-content">
+    <div class="services-label">Servicios</div>
+    <h2>Lo que ofrezco</h2>
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-icon">📹</div>
+        <h3>Brand Films</h3>
+        <p>Película de concepto que narra la identidad, filosofía y experiencia del restaurante. Formato largo (2-4 min) listo para web y redes.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">✨</div>
+        <h3>Reels & Social</h3>
+        <p>Contenido vertical optimizado para Instagram, TikTok y YouTube Shorts. Ritmo visual rápido, hooks efectivos y branding consistente.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">🎬</div>
+        <h3>Aftermovies</h3>
+        <p>Captura y edición de eventos, presentaciones, lanzamientos. Narrativa emocional que convierte momentos en recuerdos visuales.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">📸</div>
+        <h3>Fotografía Culinaria</h3>
+        <p>Shooting de platos, detalles, espacios. Imágenes con grading cinematográfico listas para marketing y redes.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">🎥</div>
+        <h3>B-Roll Premiun</h3>
+        <p>Banco de material grabado para que uses en tus propios contenidos. Clips cortos, loopables y de alta calidad.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">🎞️</div>
+        <h3>Packs Mensuales</h3>
+        <p>Servicio recurrente: 1-2 reels mensuales + fotografía. Ideal para restaurantes que quieren presencia digital constante.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contacto">
+  <div class="contact-content">
+    <div class="contact-label">Empecemos</div>
+    <h2>¿Tu restaurante necesita ser visto?</h2>
+    <p>Cuéntame sobre tu proyecto. Una llamada corta y te presento opciones de producción con presupuesto claro.</p>
+    <a href="mailto:hola@jaumaraw.com" class="contact-email">hola@jaumaraw.com</a>
+    <div class="contact-social">
+      <a href="https://instagram.com/jauma_raw" target="_blank">@jauma_raw</a>
+      <a href="https://www.youtube.com/@JaumaRaw" target="_blank">YouTube</a>
+      <a href="#">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Jauma Raw · Food Cinema</span>
+  <span>Portugal & España</span>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.classList.contains('fade-in')) {
+      entry.target.classList.add('fade-in');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.service-item, .about-text p').forEach(el => {
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
