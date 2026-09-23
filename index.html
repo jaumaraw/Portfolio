@@ -95,7 +95,34 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     filter: saturate(0.9) contrast(1.05);
+  }
+
+  /* Desktop: texto + video side by side */
+  @media (min-width: 821px) {
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 45%;
+      align-items: center;
+      height: auto;
+      min-height: 100svh;
+      padding: 4rem var(--gut);
+      gap: 3rem;
+    }
+
+    .hero-video {
+      position: static;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      border-radius: 1px;
+      transform: none;
+      inset: auto;
+    }
+
+    .hero::after { display: none; }
   }
 
   .hero::after {
@@ -435,8 +462,8 @@
 <!-- HERO -->
 <header class="hero" id="top">
   <video class="hero-video" autoplay muted loop playsinline preload="auto"
-         poster="videos/posters/Tasca Jota on Fire.jpg">
-    <source src="videos/Tasca Jota on Fire.mp4" type="video/mp4">
+         poster="videos/posters/ALCHEMIEVF.jpg">
+    <source src="videos/ALCHEMIEVF.mp4" type="video/mp4">
   </video>
   <div class="hero-inner">
     <div class="hero-kicker">Vídeo gastronómico · Portugal & España</div>
@@ -497,10 +524,9 @@
   <div class="kicker rv">Siguiente mesa</div>
   <h2 class="rv">¿Rodamos en <em>tu cocina</em>?</h2>
   <p class="lede rv">Cuéntame qué local tienes y te digo qué se puede sacar de una jornada. Respondo el mismo día.</p>
-  <a href="mailto:hola@jaumaraw.com" class="mail rv">hola@jaumaraw.com</a>
+  <a href="mailto:contacto@jaumaraw.com" class="mail rv">contacto@jaumaraw.com</a>
   <div class="socials rv">
     <a href="https://instagram.com/jauma_raw" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://www.youtube.com/@JaumaRaw" target="_blank" rel="noopener">YouTube</a>
   </div>
 </section>
 
