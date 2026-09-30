@@ -3,537 +3,621 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Jauma Raw — Producción audiovisual</title>
-<meta name="description" content="Producción audiovisual para eventos y restaurantes. Contenido que impacta. Portugal y España.">
+<meta name="description" content="Vídeo para restaurantes y eventos. Rodado en 4K vertical, montado para redes. Portugal y España.">
+<title>Jauma Raw</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
+  /* Layout: a film-strip mosaic opens the page, then two full-bleed colour blocks (one per division), each a wall of looping vertical footage. */
   :root {
-    --bg: #0a0a0a;
-    --fg: #ffffff;
-    --accent: #ff3366;
-    --gray: #999999;
-    --mono: 'Space Mono', monospace;
-    --sans: 'Inter', sans-serif;
+    color-scheme: dark;
+    --ink: #0f0e10;
+    --ink-2: #1a181c;
+    --paper: #f6efe6;
+    --paper-dim: rgba(246, 239, 230, 0.66);
+    --paper-line: rgba(246, 239, 230, 0.22);
+    --tomato: #c8291b;
+    --tomato-deep: #8f1a10;
+    --cobalt: #2f35e0;
+    --cobalt-deep: #1b1f9e;
+    --display: 'Archivo', 'Arial Narrow', Impact, sans-serif;
+    --body: 'Figtree', 'Segoe UI', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace;
+    --gut: clamp(16px, 4vw, 56px);
   }
 
-  html { scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: border-box; }
 
   body {
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--sans);
+    margin: 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
 
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2.5rem;
-    background: rgba(10,10,10,0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,51,102,0.1);
-  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible, .clip:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
 
-  .logo {
+  .wrap { padding-inline: var(--gut); }
+
+  .eyebrow {
     font-family: var(--mono);
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--fg);
-  }
-
-  .logo span { color: var(--accent); }
-
-  .nav-menu { display: flex; gap: 2rem; list-style: none; }
-
-  .nav-menu a {
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--gray);
-    text-decoration: none;
-    transition: color 0.3s;
   }
 
-  .nav-menu a:hover, .nav-menu a.active { color: var(--accent); }
-
-  .nav-dots {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--gray);
-    cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
-  }
-
-  .dot:nth-child(1) { background: #ff1493; }
-  .dot:nth-child(2) { background: #ffeb3b; }
-  .dot:nth-child(3) { background: #00ff88; }
-  .dot:nth-child(4) { background: #00ccff; }
-
-  .dot:hover { transform: scale(1.3); }
-
-  .cta-btn {
-    background: var(--accent);
-    color: var(--bg);
-    padding: 0.7rem 1.8rem;
-    border-radius: 50px;
-    border: none;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+  .display {
+    font-family: var(--display);
+    font-stretch: 125%;
+    font-weight: 850;
     text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s;
+    line-height: 0.88;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 0;
   }
 
-  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,51,102,0.3); }
-
-  /* HERO */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 6rem 2.5rem 3rem;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: 'REC';
+  /* ---------- top bar ---------- */
+  .bar {
     position: absolute;
-    top: 8rem;
-    right: 2.5rem;
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    animation: blink 1s infinite;
-  }
-
-  @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.3; } }
-
-  .hero-content {
-    max-width: 90%;
-    animation: slideUp 0.8s ease;
-  }
-
-  @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
-
-  h1 {
-    font-family: var(--mono);
-    font-size: clamp(3rem, 12vw, 8rem);
-    font-weight: 700;
-    line-height: 0.9;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    color: var(--fg);
-    margin-bottom: 1rem;
-  }
-
-  h1 em { color: var(--accent); font-style: normal; display: block; }
-
-  .hero-desc {
-    font-size: 1.1rem;
-    color: var(--gray);
-    max-width: 500px;
-    margin-bottom: 2.5rem;
-    line-height: 1.7;
-  }
-
-  .hero-actions { display: flex; gap: 2rem; align-items: center; }
-
-  .hero-actions .cta-btn { padding: 0.85rem 2rem; }
-
-  .hero-play {
-    width: 50px;
-    height: 50px;
-    border: 2px solid var(--accent);
-    border-radius: 50%;
+    top: 0; left: 0; right: 0;
+    z-index: 20;
     display: flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s;
+    justify-content: space-between;
+    gap: 16px;
+    padding: calc(18px + env(safe-area-inset-top, 0px)) var(--gut) 18px;
   }
 
-  .hero-play:hover { background: rgba(255,51,102,0.1); transform: scale(1.1); }
-
-  .hero-play::after { content: '▶'; font-size: 1rem; color: var(--accent); margin-left: 2px; }
-
-  /* DIVISIONES */
-  .divisiones {
-    padding: 4rem 2.5rem;
-    border-top: 1px solid rgba(255,51,102,0.1);
+  .brand {
+    font-family: var(--display);
+    font-stretch: 125%;
+    font-weight: 900;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    text-transform: uppercase;
   }
 
-  .divisiones-header {
-    max-width: 1200px;
-    margin: 0 auto 3rem;
-  }
+  .bar nav { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 
-  .section-label {
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--paper-line);
+    background: rgba(15, 14, 16, 0.35);
+    backdrop-filter: blur(8px);
     font-family: var(--mono);
     font-size: 0.7rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; display: block; }
+  .pill.r i { background: var(--tomato); }
+  .pill.c i { background: var(--cobalt); }
+  .pill:hover { background: rgba(246, 239, 230, 0.12); border-color: var(--paper-dim); }
+
+  .pill { padding: 6px 10px; gap: 6px; font-size: 0.6rem; white-space: nowrap; }
+  .pill i { width: 6px; height: 6px; }
+
+  @media (max-width: 600px) {
+    .bar { gap: 8px; }
+    .brand { font-size: 0.82rem; white-space: nowrap; }
+    .bar nav { flex-wrap: nowrap; gap: 4px; }
+    .pill { padding: 5px 7px; gap: 4px; font-size: 0.52rem; letter-spacing: 0.06em; }
+    .pill i { width: 5px; height: 5px; }
   }
 
-  h2 {
-    font-family: var(--mono);
-    font-size: clamp(2rem, 6vw, 4rem);
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-  }
+  /* ---------- hero: film-strip mosaic ---------- */
+  .hero { position: relative; background: var(--ink); }
 
-  .division-tabs {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 3rem;
-  }
-
-  .tab {
-    padding: 1rem 2rem;
-    border: 2px solid rgba(255,51,102,0.2);
-    background: transparent;
-    color: var(--gray);
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-
-  .tab:hover { border-color: var(--accent); color: var(--fg); }
-  .tab.active { border-color: var(--accent); background: var(--accent); color: var(--bg); }
-
-  .division-content {
-    display: none;
-  }
-
-  .division-content.active {
-    display: block;
-    animation: fadeIn 0.5s ease;
-  }
-
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-  .video-grid {
+  .strip {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
   }
 
-  .video-card {
-    position: relative;
-    aspect-ratio: 9/16;
-    overflow: hidden;
-    background: #1a1a1a;
-    cursor: pointer;
-  }
-
-  .video-card video {
+  .strip video {
+    display: block;
     width: 100%;
+    max-width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    background: var(--ink-2);
+  }
+
+  .strip .side { filter: saturate(0.85) brightness(0.8); }
+
+  .hero-copy {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 5;
+    padding: 0 var(--gut) clamp(20px, 4vw, 48px);
+    background: linear-gradient(180deg, rgba(15,14,16,0) 0%, rgba(15,14,16,0.72) 45%, rgba(15,14,16,0.94) 100%);
+    padding-top: clamp(80px, 12vw, 160px);
+    display: grid;
+    gap: 18px;
+  }
+
+  .hero-copy h1 { font-size: clamp(2.6rem, 8.2vw, 7.6rem); }
+  .hero-copy h1 span { display: block; }
+  .hero-copy h1 .r { color: var(--tomato); }
+  .hero-copy h1 .c { color: #6f74ff; }
+
+  .hero-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px 32px;
+  }
+
+  .hero-foot p { margin: 0; max-width: 46ch; color: var(--paper-dim); }
+
+  .now {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--paper-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 900px) {
+    .strip { grid-template-columns: repeat(3, 1fr); }
+    .strip .far { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .strip { grid-template-columns: 1fr; }
+    .strip .side { display: none; }
+    .strip video { aspect-ratio: auto; height: min(92svh, 760px); }
+  }
+
+  /* ---------- divisions ---------- */
+  .divisions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .div-card {
+    position: relative;
+    display: grid;
+    align-content: space-between;
+    gap: 48px;
+    min-height: clamp(240px, 32vw, 420px);
+    padding: clamp(24px, 4vw, 56px) var(--gut);
+    text-decoration: none;
+    overflow: hidden;
+    container-type: inline-size;
+    transition: filter 0.25s;
+  }
+  .div-card.r { background: var(--tomato); }
+  .div-card.c { background: var(--cobalt); }
+  .div-card:hover { filter: brightness(1.08); }
+
+  .div-card h2 { font-size: clamp(1.6rem, 9.2cqi, 5.4rem); white-space: nowrap; }
+  .div-card p { margin: 0; max-width: 34ch; }
+  .div-card .meta { display: flex; justify-content: space-between; gap: 16px; align-items: end; }
+  .div-card .go {
+    font-family: var(--display);
+    font-stretch: 125%;
+    font-weight: 800;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1;
+    transition: transform 0.25s;
+  }
+  .div-card:hover .go { transform: translate(4px, 4px); }
+
+  @media (max-width: 700px) {
+    .divisions { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- division sections ---------- */
+  .section { padding-block: clamp(48px, 8vw, 110px); }
+  .section.r { background: var(--tomato); }
+  .section.c { background: var(--cobalt); }
+
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px 40px;
+    margin-bottom: clamp(24px, 4vw, 48px);
+  }
+
+  .section-head h2 { font-size: clamp(2.4rem, 6.4vw, 6rem); }
+  .section-head p { margin: 0; max-width: 38ch; font-size: clamp(1.05rem, 1.6vw, 1.3rem); line-height: 1.45; }
+  .section-head .eyebrow { display: block; margin-bottom: 14px; opacity: 0.85; font-size: 0.82rem; }
+
+  .wall {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(8px, 1.4vw, 16px);
+  }
+
+  @media (max-width: 900px) { .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  .clip {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .r .clip { background: var(--tomato-deep); }
+  .c .clip { background: var(--cobalt-deep); }
+
+  .clip video {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .clip.wide video { aspect-ratio: 16 / 9; }
+
+  @media (hover: hover) { .clip:hover video { transform: scale(1.035); } }
+
+  .clip figcaption {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: grid;
+    gap: 4px;
+    padding: 40px 14px 14px;
+    background: linear-gradient(180deg, rgba(15,14,16,0) 0%, rgba(15,14,16,0.78) 100%);
+    pointer-events: none;
+  }
+
+  .clip .name, .shaped .name {
+    font-family: var(--display);
+    font-stretch: 112%;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+    line-height: 1;
+  }
+
+  .clip .spec, .shaped .spec {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--paper-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .snd {
+    position: absolute;
+    top: 10px; right: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: rgba(15, 14, 16, 0.55);
+    backdrop-filter: blur(6px);
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  .snd b { width: 6px; height: 6px; border-radius: 50%; background: var(--paper-dim); }
+  .clip.on .snd { background: var(--paper); color: var(--ink); }
+  .clip.on .snd b { background: var(--tomato); }
+  .c .clip.on .snd b { background: var(--cobalt); }
+
+  /* restauración: uniform rounded row + mixed-shape row */
+  .rows { display: grid; gap: clamp(28px, 5vw, 64px); }
+  .wall.round .clip { border-radius: 22px; }
+
+  .wall.shapes { align-items: end; }
+  .shaped { margin: 0; display: grid; gap: 12px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .shaped .shape {
+    overflow: hidden;
+    background: var(--tomato-deep);
+    outline: 3px solid transparent;
+    outline-offset: 5px;
+    transition: outline-color 0.2s;
+  }
+  .shaped video {
+    display: block;
+    width: 100%;
+    max-width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @media (hover: hover) { .shaped:hover video { transform: scale(1.04); } }
+  .shaped.on .shape { outline-color: var(--paper); }
+  .shaped figcaption { display: grid; gap: 4px; }
+  .shaped .spec { color: var(--paper-dim); }
+  .shaped .hint { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper-dim); }
+  .shaped.on .hint { color: var(--paper); }
+
+  .tall  { aspect-ratio: 9 / 16; }
+  .arch  { aspect-ratio: 9 / 16; border-radius: 999px 999px 18px 18px; }
+  .disc  { aspect-ratio: 1 / 1;  border-radius: 50%; }
+  .leaf  { aspect-ratio: 3 / 4;  border-radius: 140px 18px 140px 18px; }
+  .pill  { aspect-ratio: 9 / 16; border-radius: 999px; }
+
+  /* events: wide feature + row of verticals */
+  .events { display: grid; gap: clamp(8px, 1.4vw, 16px); }
+  .events-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(8px, 1.4vw, 16px);
   }
 
-  .video-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.5rem;
-    transition: background 0.3s;
+  @media (max-width: 700px) {
+    .events-row {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 72%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 6px;
+    }
+    .events-row .clip { scroll-snap-align: start; }
   }
 
-  .video-card:hover .video-overlay { background: linear-gradient(180deg, transparent 0%, rgba(255,51,102,0.3) 100%); }
+  /* ---------- contact ---------- */
+  .contact { padding-block: clamp(56px, 9vw, 120px); background: var(--ink); }
+  .contact h2 { font-size: clamp(2.4rem, 6.4vw, 6rem); margin-bottom: clamp(24px, 4vw, 44px); }
+  .contact > .eyebrow { font-size: 0.82rem; }
+  .line .eyebrow { font-size: 0.8rem; }
 
-  .video-title {
-    font-family: var(--mono);
-    font-size: 1.2rem;
+  .lines { display: grid; border-top: 1px solid var(--paper-line); }
+  .line {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    padding-block: 18px;
+    border-bottom: 1px solid var(--paper-line);
+  }
+  .line .eyebrow { color: var(--paper-dim); }
+  .line .val {
+    font-family: var(--display);
+    font-stretch: 110%;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    font-size: clamp(1.35rem, 3.4vw, 2.4rem);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+    user-select: all;
   }
+  .line a.val { text-decoration: none; }
+  .line a.val:hover { color: #ff8a7a; }
 
-  .video-type {
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  /* CONTACT */
-  section.contact {
-    padding: 6rem 2.5rem;
-    background: #0a0a0a;
-    border-top: 1px solid rgba(255,51,102,0.1);
-  }
-
-  .contact-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .contact-email {
+  .btn {
     font-family: var(--mono);
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--fg);
+    padding: 12px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--paper-line);
+    background: transparent;
+    color: var(--paper);
+    cursor: pointer;
     text-decoration: none;
-    margin: 2rem 0;
-    display: inline-block;
-    border-bottom: 3px solid var(--accent);
-    padding-bottom: 0.5rem;
-    transition: all 0.3s;
+    white-space: nowrap;
   }
+  .btn:hover { background: var(--paper); color: var(--ink); }
 
-  .contact-email:hover { color: var(--accent); }
-
-  .socials {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 2rem;
+  @media (max-width: 600px) {
+    .line { grid-template-columns: minmax(0, 1fr) auto; }
+    .line .eyebrow { grid-column: 1 / -1; }
   }
-
-  .socials a {
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--gray);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  .socials a:hover { color: var(--accent); }
 
   footer {
-    padding: 2rem 2.5rem;
-    text-align: center;
-    font-size: 0.75rem;
-    color: var(--gray);
-    border-top: 1px solid rgba(255,51,102,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+    padding-block: 20px calc(20px + env(safe-area-inset-bottom, 0px));
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--paper-dim);
+    border-top: 1px solid var(--paper-line);
   }
 
-  @media (max-width: 768px) {
-    .nav-menu { display: none; }
-    .division-tabs { flex-wrap: wrap; }
-    .hero-actions { flex-direction: column; align-items: flex-start; }
-    h1 { font-size: clamp(2rem, 8vw, 4rem); }
+  @media (prefers-reduced-motion: reduce) {
+    .clip video, .div-card .go { transition: none; }
   }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">JAUMA<span>.</span></div>
-  <ul class="nav-menu">
-    <li><a href="#eventos" class="tab-link active" onclick="switchDivision('eventos')">EVENTOS</a></li>
-    <li><a href="#restauracion" class="tab-link" onclick="switchDivision('restauracion')">RESTAURACIÓN</a></li>
-    <li><a href="#contacto">CONTACTO</a></li>
-  </ul>
-  <div class="nav-dots">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
-</nav>
 
-<!-- HERO -->
 <header class="hero">
-  <div class="hero-content">
-    <h1>LO <em>GRABAMOS</em></h1>
-    <p class="hero-desc">Producción audiovisual de impacto. Eventos y restaurantes que merecen ser vistos como se filman las películas.</p>
-    <div class="hero-actions">
-      <button class="cta-btn">Ver trabajos</button>
-      <div class="hero-play"></div>
+  <div class="bar">
+    <a class="brand" href="#top">Jauma Raw</a>
+    <nav aria-label="Divisiones">
+      <a class="pill r" href="#restauracion"><i></i>Restauración</a>
+      <a class="pill c" href="#eventos"><i></i>Eventos</a>
+      <a class="pill plain" href="#contacto">Contacto</a>
+    </nav>
+  </div>
+
+  <div class="strip" id="top">
+    <video class="side far auto" src="v/tasca-jota.mp4" poster="p/tasca-jota.jpg" muted loop playsinline preload="metadata"></video>
+    <video class="side auto" src="v/cinesa.mp4" poster="p/cinesa.jpg" muted loop playsinline preload="metadata"></video>
+    <video class="auto" id="lead" src="v/alchemie.mp4" poster="p/alchemie.jpg" muted loop playsinline autoplay preload="auto"></video>
+    <video class="side auto" src="v/yakis.mp4" poster="p/yakis.jpg" muted loop playsinline preload="metadata"></video>
+    <video class="side far auto" src="v/lamassa.mp4" poster="p/lamassa.jpg" muted loop playsinline preload="metadata"></video>
+  </div>
+
+  <div class="hero-copy">
+    <h1 class="display">
+      <span class="r">Del pase</span>
+      <span class="c">a la pista</span>
+    </h1>
+    <div class="hero-foot">
+      <p>Vídeo para restaurantes y eventos. Rodado en 4K vertical, montado para que funcione en redes desde el primer segundo.</p>
+      <span class="now" id="now">ALCHEMIE · 00:00</span>
     </div>
   </div>
 </header>
 
-<!-- DIVISIONES -->
-<section class="divisiones">
-  <div class="divisiones-header">
-    <div class="section-label">Especialidades</div>
-    <h2>Elegir división</h2>
-  </div>
-
-  <div class="division-tabs">
-    <button class="tab active" onclick="switchDivision('eventos')">Eventos</button>
-    <button class="tab" onclick="switchDivision('restauracion')">Restauración</button>
-  </div>
-
-  <!-- EVENTOS -->
-  <div id="eventos" class="division-content active">
-    <div class="video-grid">
-      <div class="video-card" onclick="playVideo(this)">
-        <video muted loop playsinline preload="none" poster="videos/posters/TIMEOUT.jpg">
-          <source src="videos/TIMEOUT.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-          <div class="video-type">Lanzamiento</div>
-          <div class="video-title">Time Out Market</div>
-        </div>
-      </div>
-      <div class="video-card" onclick="playVideo(this)">
-        <video muted loop playsinline preload="none" poster="videos/posters/Tasca Jota on Fire.jpg">
-          <source src="videos/Tasca Jota on Fire.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-          <div class="video-type">Concierto</div>
-          <div class="video-title">Tasca Jota</div>
-        </div>
-      </div>
+<section class="divisions" aria-label="Divisiones">
+  <a class="div-card r" href="#restauracion">
+    <span class="eyebrow">División 1 · 8 piezas</span>
+    <h2 class="display">Restauración</h2>
+    <div class="meta">
+      <p>Cocina, sala y producto. Una jornada de rodaje con el servicio en marcha.</p>
+      <span class="go" aria-hidden="true">↘</span>
     </div>
-  </div>
+  </a>
+  <a class="div-card c" href="#eventos">
+    <span class="eyebrow">División 2 · 4 aftermovies</span>
+    <h2 class="display">Eventos</h2>
+    <div class="meta">
+      <p>Conciertos, festivales y eventos de marca contados en un minuto.</p>
+      <span class="go" aria-hidden="true">↘</span>
+    </div>
+  </a>
+</section>
 
-  <!-- RESTAURACIÓN -->
-  <div id="restauracion" class="division-content">
-    <div class="video-grid">
-      <div class="video-card" onclick="playVideo(this)">
-        <video muted loop playsinline preload="none" poster="videos/posters/INFAME_CENA.jpg">
-          <source src="videos/INFAME_CENA.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-          <div class="video-type">Servicio</div>
-          <div class="video-title">Infame · Cena</div>
-        </div>
-      </div>
-      <div class="video-card" onclick="playVideo(this)">
-        <video muted loop playsinline preload="none" poster="videos/posters/LAMASSA.jpg">
-          <source src="videos/LAMASSA.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-          <div class="video-type">Producto</div>
-          <div class="video-title">La Massa</div>
-        </div>
-      </div>
-      <div class="video-card" onclick="playVideo(this)">
-        <video muted loop playsinline preload="none" poster="videos/posters/Comporta Flavors.jpg">
-          <source src="videos/Comporta Flavors.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-          <div class="video-type">Lifestyle</div>
-          <div class="video-title">Comporta Flavors</div>
-        </div>
-      </div>
-      <div class="video-card" onclick="playVideo(this)">
-        <video muted loop playsinline preload="none" poster="videos/posters/ALCHEMIEVF.jpg">
-          <source src="videos/ALCHEMIEVF.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-          <div class="video-type">Coctelería</div>
-          <div class="video-title">Alchemie</div>
-        </div>
-      </div>
-      <div class="video-card" onclick="playVideo(this)">
-        <video muted loop playsinline preload="none" poster="videos/posters/INFAME_BREAKFAST.jpg">
-          <source src="videos/INFAME_BREAKFAST.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-          <div class="video-type">Morning</div>
-          <div class="video-title">Infame · Desayuno</div>
-        </div>
-      </div>
-      <div class="video-card" onclick="playVideo(this)">
-        <video muted loop playsinline preload="none" poster="videos/posters/DOLIVA.jpg">
-          <source src="videos/DOLIVA.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-          <div class="video-type">Detalle</div>
-          <div class="video-title">D'Oliva</div>
-        </div>
-      </div>
+<section class="section r wrap" id="restauracion">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Portugal · 2026</span>
+      <h2 class="display">Restau&shy;ración</h2>
+    </div>
+    <p>Toca una pieza para escucharla. Suena solo una a la vez.</p>
+  </div>
+  <div class="rows">
+    <div class="wall shapes">
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/timeout.mp4" poster="p/timeout.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Time Out Market</span><span class="spec">00:31 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/tasca-jota.mp4" poster="p/tasca-jota.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Tasca Jota</span><span class="spec">00:35 · 9:16 · 1080p</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/infame-cena.mp4" poster="p/infame-cena.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Infame · Cena</span><span class="spec">00:19 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/lamassa.mp4" poster="p/lamassa.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">La Massa</span><span class="spec">00:21 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
+    </div>
+    <div class="wall shapes">
+      <figure class="shaped" tabindex="0"><div class="shape arch"><video class="auto" src="v/alchemie.mp4" poster="p/alchemie.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Alchemie</span><span class="spec">00:15 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape disc"><video class="auto" src="v/comporta.mp4" poster="p/comporta.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Comporta Flavors</span><span class="spec">00:40 · 9:16 · 1080p</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape leaf"><video class="auto" src="v/infame-desayuno.mp4" poster="p/infame-desayuno.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Infame · Desayuno</span><span class="spec">00:13 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape pill"><video class="auto" src="v/doliva.mp4" poster="p/doliva.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">D'Oliva</span><span class="spec">00:23 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact" id="contacto">
-  <div class="contact-content">
-    <div class="section-label">Siguiente proyecto</div>
-    <h2>¿Rodamos juntos?</h2>
-    <a href="mailto:contacto@jaumaraw.com" class="contact-email">contacto@jaumaraw.com</a>
-    <div class="socials">
-      <a href="https://instagram.com/jauma_raw" target="_blank">Instagram</a>
-      <a href="https://wa.me/34650639596" target="_blank">WhatsApp</a>
+<section class="section c wrap" id="eventos">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Aftermovies</span>
+      <h2 class="display">Eventos</h2>
+    </div>
+    <p>Del montaje al último bis. Horizontal para la pantalla grande, vertical para el móvil.</p>
+  </div>
+  <div class="events">
+    <figure class="clip wide" tabindex="0"><video class="auto" src="v/techfest.mp4" poster="p/techfest.jpg" muted loop playsinline preload="none"></video><span class="snd"><b></b>Sonido</span><figcaption><span class="name">Techfest</span><span class="spec">00:37 · 16:9 · 4K</span></figcaption></figure>
+    <div class="events-row">
+      <figure class="clip" tabindex="0"><video class="auto" src="v/yakis.mp4" poster="p/yakis.jpg" muted loop playsinline preload="none"></video><span class="snd"><b></b>Sonido</span><figcaption><span class="name">Los Yakis</span><span class="spec">00:52 · 9:16 · 4K</span></figcaption></figure>
+      <figure class="clip" tabindex="0"><video class="auto" src="v/cinesa.mp4" poster="p/cinesa.jpg" muted loop playsinline preload="none"></video><span class="snd"><b></b>Sonido</span><figcaption><span class="name">Cinesa</span><span class="spec">00:44 · 9:16 · 1080p</span></figcaption></figure>
+      <figure class="clip" tabindex="0"><video class="auto" src="v/skarlett.mp4" poster="p/skarlett.jpg" muted loop playsinline preload="none"></video><span class="snd"><b></b>Sonido</span><figcaption><span class="name">Skarlett</span><span class="spec">01:02 · 9:16 · 1080p</span></figcaption></figure>
     </div>
   </div>
 </section>
 
-<footer>
-  <p>© 2026 Jauma Raw · Producción audiovisual · Portugal & España</p>
+<section class="contact wrap" id="contacto">
+  <span class="eyebrow" style="color: var(--paper-dim)">Contacto</span>
+  <h2 class="display">¿Rodamos?</h2>
+  <div class="lines">
+    <div class="line">
+      <span class="eyebrow">Email</span>
+      <span class="val" id="mail">contacto@jaumaraw.com</span>
+      <button class="btn" id="copy" type="button">Copiar</button>
+    </div>
+    <div class="line">
+      <span class="eyebrow">WhatsApp</span>
+      <a class="val" href="https://wa.me/34650639596" target="_blank" rel="noopener">+34 650 63 95 96</a>
+      <a class="btn" href="https://wa.me/34650639596" target="_blank" rel="noopener">Abrir chat</a>
+    </div>
+    <div class="line">
+      <span class="eyebrow">Instagram</span>
+      <a class="val" href="https://instagram.com/jauma_raw" target="_blank" rel="noopener">@jauma_raw</a>
+      <a class="btn" href="https://instagram.com/jauma_raw" target="_blank" rel="noopener">Ver perfil</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>© 2026 Jauma Raw</span>
+  <span>Restauración · Eventos · Portugal & España</span>
 </footer>
 
 <script>
-function switchDivision(division) {
-  document.querySelectorAll('.division-content').forEach(d => d.classList.remove('active'));
-  document.getElementById(division).classList.add('active');
+  const radii = ['14px', '36px', '80px', '140px', '999px'];
+  const pick = () => radii[Math.floor(Math.random() * radii.length)];
+  document.querySelectorAll('#restauracion .shape').forEach(s => {
+    s.style.borderRadius = [pick(), pick(), pick(), pick()].join(' ');
+  });
 
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
+  const vids = [...document.querySelectorAll('video.auto')];
 
-  document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-  document.querySelector(`a[href="#${division}"]`).classList.add('active');
-}
-
-function playVideo(card) {
-  const video = card.querySelector('video');
-  if (video.paused) {
-    video.muted = false;
-    video.play();
-  } else {
-    video.pause();
-    video.muted = true;
-  }
-}
-
-document.querySelectorAll('.video-card video').forEach(video => {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        video.play();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(({ target: v, isIntersecting }) => {
+      if (isIntersecting) {
+        if (v.preload === 'none') v.preload = 'auto';
+        v.play().catch(() => {});
       } else {
-        video.pause();
+        v.pause();
+        const card = v.closest('.clip, .shaped');
+        if (card && card.classList.contains('on')) { v.muted = true; card.classList.remove('on'); }
       }
     });
-  }, { threshold: 0.5 });
-  observer.observe(video);
-});
+  }, { threshold: 0.3 });
+  vids.forEach(v => io.observe(v));
 
-document.querySelector('.cta-btn').addEventListener('click', () => {
-  document.querySelector('.divisiones').scrollIntoView({ behavior: 'smooth' });
-});
+  const clips = [...document.querySelectorAll('.clip, .shaped')];
+  function toggle(card) {
+    const v = card.querySelector('video');
+    const turnOn = !card.classList.contains('on');
+    clips.forEach(c => { c.classList.remove('on'); c.querySelector('video').muted = true; });
+    if (turnOn) { v.muted = false; card.classList.add('on'); v.play().catch(() => {}); }
+  }
+  clips.forEach(card => {
+    card.addEventListener('click', () => toggle(card));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(card); } });
+  });
+
+  const lead = document.getElementById('lead');
+  const now = document.getElementById('now');
+  lead.addEventListener('timeupdate', () => {
+    const s = Math.floor(lead.currentTime);
+    now.textContent = 'ALCHEMIE · 00:' + String(s).padStart(2, '0');
+  });
+
+  const copy = document.getElementById('copy');
+  copy.addEventListener('click', async () => {
+    const text = document.getElementById('mail').textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      copy.textContent = 'Copiado';
+    } catch {
+      const r = document.createRange();
+      r.selectNodeContents(document.getElementById('mail'));
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      copy.textContent = 'Seleccionado';
+    }
+    setTimeout(() => { copy.textContent = 'Copiar'; }, 1800);
+  });
 </script>
+
 </body>
 </html>
