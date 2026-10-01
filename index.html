@@ -402,6 +402,11 @@
   .send:hover { filter: brightness(1.12); }
   .form-note { margin: 0; font-size: 0.85rem; color: var(--paper-dim); }
   .form-error { margin: 0; font-size: 0.9rem; color: #ff8a7a; }
+  .brief { position: relative; }
+  .form-status { margin: 0; font-size: 0.95rem; min-height: 1.4em; }
+  .form-status.ok { color: #9be3a8; }
+  .form-status.fail { color: #ff8a7a; }
+  .send[disabled] { opacity: 0.6; cursor: wait; }
   .contact > .eyebrow { font-size: 0.82rem; }
   .line .eyebrow { font-size: 0.8rem; }
 
@@ -610,12 +615,17 @@
         <label for="f-msg">Mensaje</label>
         <textarea id="f-msg" name="mensaje" rows="4" required placeholder="Qué quieres grabar y para qué lo vas a usar"></textarea>
       </div>
-      <p class="form-error" id="f-error" hidden>Escribe tu nombre y un mensaje para poder enviarlo.</p>
-      <div class="actions">
-        <button class="send" type="submit">Enviar por WhatsApp</button>
-        <button class="btn" type="button" id="by-mail">Enviar por email</button>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+      <div class="field">
+        <label for="f-mail">Email o teléfono</label>
+        <input id="f-mail" name="contacto" type="text" autocomplete="email" required placeholder="Para poder responderte">
       </div>
-      <p class="form-note">Se abre WhatsApp o tu correo con el mensaje ya escrito. Solo tienes que darle a enviar.</p>
+      <p class="form-error" id="f-error" hidden>Rellena tu nombre, cómo contactarte y el mensaje.</p>
+      <div class="actions">
+        <button class="send" type="submit" id="f-send">Enviar mensaje</button>
+        <button class="btn" type="button" id="by-wa">O escríbeme por WhatsApp</button>
+      </div>
+      <p class="form-status" id="f-status" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -692,31 +702,67 @@
   });
 
   const brief = document.getElementById('brief');
-  function briefText() {
+  const status = document.getElementById('f-status');
+  const sendBtn = document.getElementById('f-send');
+
+  function readBrief() {
     const d = new FormData(brief);
-    const nombre = (d.get('nombre') || '').trim();
-    const mensaje = (d.get('mensaje') || '').trim();
+    const v = k => (d.get(k) || '').trim();
+    const data = { nombre: v('nombre'), lugar: v('lugar'), tipo: v('tipo'), fecha: v('fecha'), contacto: v('contacto'), mensaje: v('mensaje') };
     const err = document.getElementById('f-error');
-    if (!nombre || !mensaje) { err.hidden = false; (nombre ? brief.mensaje : brief.nombre).focus(); return null; }
+    const missing = ['nombre', 'contacto', 'mensaje'].find(k => !data[k]);
+    if (missing) { err.hidden = false; brief[missing].focus(); return null; }
     err.hidden = true;
-    const lugar = (d.get('lugar') || '').trim();
-    const fecha = (d.get('fecha') || '').trim();
-    return [
-      'Hola Jauma, soy ' + nombre + '.',
-      'Proyecto: ' + d.get('tipo') + (lugar ? ' · ' + lugar : ''),
-      fecha ? 'Fecha: ' + fecha : '',
-      '',
-      mensaje
-    ].filter((l, i) => l !== '' || i === 3).join('\n');
+    return data;
   }
-  brief.addEventListener('submit', e => {
+
+  brief.addEventListener('submit', async e => {
     e.preventDefault();
-    const t = briefText();
-    if (t) window.open('https://wa.me/34650639596?text=' + encodeURIComponent(t), '_blank', 'noopener');
+    if (brief._honey.value) return;
+    const data = readBrief();
+    if (!data) return;
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Enviando…';
+    status.className = 'form-status';
+    status.textContent = '';
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/contacto@jaumaraw.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: 'Nuevo proyecto: ' + data.tipo + (data.lugar ? ' · ' + data.lugar : ''),
+          _template: 'table',
+          _replyto: data.contacto.includes('@') ? data.contacto : undefined,
+          Nombre: data.nombre,
+          'Restaurante o evento': data.lugar || '—',
+          Tipo: data.tipo,
+          Fecha: data.fecha || '—',
+          Contacto: data.contacto,
+          Mensaje: data.mensaje
+        })
+      });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || String(out.success) === 'false') throw new Error(out.message || res.status);
+      brief.reset();
+      status.className = 'form-status ok';
+      status.textContent = 'Mensaje enviado. Te respondo lo antes posible.';
+    } catch {
+      status.className = 'form-status fail';
+      status.textContent = 'No se ha podido enviar. Escríbeme por WhatsApp o a contacto@jaumaraw.com.';
+    } finally {
+      sendBtn.disabled = false;
+      sendBtn.textContent = 'Enviar mensaje';
+    }
   });
-  document.getElementById('by-mail').addEventListener('click', () => {
-    const t = briefText();
-    if (t) location.href = 'mailto:contacto@jaumaraw.com?subject=' + encodeURIComponent('Proyecto de vídeo') + '&body=' + encodeURIComponent(t);
+
+  document.getElementById('by-wa').addEventListener('click', () => {
+    const d = new FormData(brief);
+    const v = k => (d.get(k) || '').trim();
+    const lines = ['Hola Jauma' + (v('nombre') ? ', soy ' + v('nombre') : '') + '.'];
+    lines.push('Proyecto: ' + v('tipo') + (v('lugar') ? ' · ' + v('lugar') : ''));
+    if (v('fecha')) lines.push('Fecha: ' + v('fecha'));
+    if (v('mensaje')) lines.push('', v('mensaje'));
+    window.open('https://wa.me/34650639596?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
   });
 </script>
 
