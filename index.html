@@ -321,7 +321,7 @@
   .rows { display: grid; gap: clamp(28px, 5vw, 64px); }
   .clip, .shaped .shape { border-radius: 22px; }
 
-  .wall.shapes { align-items: end; }
+  .wall.shapes { align-items: start; }
   .shaped { margin: 0; display: grid; gap: 12px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
   .shaped .shape {
     overflow: hidden;
@@ -568,10 +568,15 @@
 
   const vids = [...document.querySelectorAll('video.auto')];
 
-  const io = new IntersectionObserver((entries) => {
+  const near = new IntersectionObserver((entries) => {
+    entries.forEach(({ target: v, isIntersecting }) => {
+      if (isIntersecting && v.preload === 'none') { v.preload = 'auto'; v.load(); }
+    });
+  }, { rootMargin: '250px 0px' });
+
+  const seen = new IntersectionObserver((entries) => {
     entries.forEach(({ target: v, isIntersecting }) => {
       if (isIntersecting) {
-        if (v.preload === 'none') v.preload = 'auto';
         v.play().catch(() => {});
       } else {
         v.pause();
@@ -579,8 +584,9 @@
         if (card && card.classList.contains('on')) { v.muted = true; card.classList.remove('on'); }
       }
     });
-  }, { threshold: 0.01, rootMargin: "500px 0px" });
-  vids.forEach(v => io.observe(v));
+  }, { threshold: 0.25 });
+
+  vids.forEach(v => { near.observe(v); seen.observe(v); });
 
   const clips = [...document.querySelectorAll('.clip, .shaped')];
   function toggle(card) {
