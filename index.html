@@ -370,7 +370,38 @@
 
   /* ---------- contact ---------- */
   .contact { padding-block: clamp(56px, 9vw, 120px); background: var(--ink); }
-  .contact h2 { font-size: clamp(2.4rem, 6.4vw, 6rem); margin-bottom: clamp(24px, 4vw, 44px); }
+  .contact h2 { font-size: clamp(2.2rem, 4.6vw, 4.6rem); margin-bottom: clamp(24px, 4vw, 44px); }
+  .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: minmax(0, 1fr); } }
+
+  .brief { display: grid; gap: 18px; padding: clamp(20px, 3vw, 36px); border: 1px solid var(--paper-line); border-radius: 22px; background: var(--ink-2); }
+  .field { display: grid; gap: 8px; margin: 0; padding: 0; border: 0; min-width: 0; }
+  .field label, .field legend { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper-dim); padding: 0; }
+  .field legend { margin-bottom: 8px; }
+  .brief input[type="text"], .brief textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--paper);
+    background: var(--ink);
+    border: 1px solid var(--paper-line);
+    border-radius: 12px;
+    padding: 13px 14px;
+    resize: vertical;
+  }
+  .brief input::placeholder, .brief textarea::placeholder { color: rgba(246, 239, 230, 0.38); }
+  .brief input:focus, .brief textarea:focus { outline: 2px solid var(--paper); outline-offset: 1px; border-color: transparent; }
+  .choices { display: flex; flex-wrap: wrap; gap: 8px; }
+  .choice { position: relative; cursor: pointer; }
+  .choice input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .choice span { display: inline-block; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--paper-line); font-size: 0.9rem; transition: background 0.2s, color 0.2s; }
+  .choice input:checked + span { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+  .choice input:focus-visible + span { outline: 2px solid var(--paper); outline-offset: 2px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .send { font: inherit; font-weight: 600; font-size: 0.95rem; padding: 13px 22px; border-radius: 999px; border: 0; background: var(--tomato); color: var(--paper); cursor: pointer; transition: filter 0.2s; }
+  .send:hover { filter: brightness(1.12); }
+  .form-note { margin: 0; font-size: 0.85rem; color: var(--paper-dim); }
+  .form-error { margin: 0; font-size: 0.9rem; color: #ff8a7a; }
   .contact > .eyebrow { font-size: 0.82rem; }
   .line .eyebrow { font-size: 0.8rem; }
 
@@ -530,24 +561,62 @@
 </section>
 
 <section class="contact wrap" id="contacto">
-  <span class="eyebrow" style="color: var(--paper-dim)">Contacto</span>
-  <h2 class="display">¿Rodamos?</h2>
-  <div class="lines">
-    <div class="line">
-      <span class="eyebrow">Email</span>
-      <span class="val" id="mail">contacto@jaumaraw.com</span>
-      <button class="btn" id="copy" type="button">Copiar</button>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <span class="eyebrow" style="color: var(--paper-dim)">Contacto</span>
+      <h2 class="display">¿Rodamos?</h2>
+      <div class="lines">
+        <div class="line">
+          <span class="eyebrow">Email</span>
+          <span class="val" id="mail">contacto@jaumaraw.com</span>
+          <button class="btn" id="copy" type="button">Copiar</button>
+        </div>
+        <div class="line">
+          <span class="eyebrow">WhatsApp</span>
+          <a class="val" href="https://wa.me/34650639596" target="_blank" rel="noopener">+34 650 63 95 96</a>
+          <a class="btn" href="https://wa.me/34650639596" target="_blank" rel="noopener">Abrir chat</a>
+        </div>
+        <div class="line">
+          <span class="eyebrow">Instagram</span>
+          <a class="val" href="https://instagram.com/jauma_raw" target="_blank" rel="noopener">@jauma_raw</a>
+          <a class="btn" href="https://instagram.com/jauma_raw" target="_blank" rel="noopener">Ver perfil</a>
+        </div>
+      </div>
     </div>
-    <div class="line">
-      <span class="eyebrow">WhatsApp</span>
-      <a class="val" href="https://wa.me/34650639596" target="_blank" rel="noopener">+34 650 63 95 96</a>
-      <a class="btn" href="https://wa.me/34650639596" target="_blank" rel="noopener">Abrir chat</a>
-    </div>
-    <div class="line">
-      <span class="eyebrow">Instagram</span>
-      <a class="val" href="https://instagram.com/jauma_raw" target="_blank" rel="noopener">@jauma_raw</a>
-      <a class="btn" href="https://instagram.com/jauma_raw" target="_blank" rel="noopener">Ver perfil</a>
-    </div>
+
+    <form class="brief" id="brief" novalidate>
+      <span class="eyebrow" style="color: var(--paper-dim)">Cuéntame tu proyecto</span>
+      <div class="field">
+        <label for="f-name">Nombre</label>
+        <input id="f-name" name="nombre" type="text" autocomplete="name" required placeholder="Tu nombre">
+      </div>
+      <div class="field">
+        <label for="f-place">Restaurante o evento</label>
+        <input id="f-place" name="lugar" type="text" placeholder="Nombre del local o del evento">
+      </div>
+      <fieldset class="field">
+        <legend>Tipo de proyecto</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="tipo" value="Restauración" checked><span>Restauración</span></label>
+          <label class="choice"><input type="radio" name="tipo" value="Evento"><span>Evento</span></label>
+          <label class="choice"><input type="radio" name="tipo" value="Otro"><span>Otro</span></label>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="f-date">Fecha aproximada</label>
+        <input id="f-date" name="fecha" type="text" placeholder="Ej. finales de noviembre">
+      </div>
+      <div class="field">
+        <label for="f-msg">Mensaje</label>
+        <textarea id="f-msg" name="mensaje" rows="4" required placeholder="Qué quieres grabar y para qué lo vas a usar"></textarea>
+      </div>
+      <p class="form-error" id="f-error" hidden>Escribe tu nombre y un mensaje para poder enviarlo.</p>
+      <div class="actions">
+        <button class="send" type="submit">Enviar por WhatsApp</button>
+        <button class="btn" type="button" id="by-mail">Enviar por email</button>
+      </div>
+      <p class="form-note">Se abre WhatsApp o tu correo con el mensaje ya escrito. Solo tienes que darle a enviar.</p>
+    </form>
   </div>
 </section>
 
@@ -620,6 +689,34 @@
       copy.textContent = 'Seleccionado';
     }
     setTimeout(() => { copy.textContent = 'Copiar'; }, 1800);
+  });
+
+  const brief = document.getElementById('brief');
+  function briefText() {
+    const d = new FormData(brief);
+    const nombre = (d.get('nombre') || '').trim();
+    const mensaje = (d.get('mensaje') || '').trim();
+    const err = document.getElementById('f-error');
+    if (!nombre || !mensaje) { err.hidden = false; (nombre ? brief.mensaje : brief.nombre).focus(); return null; }
+    err.hidden = true;
+    const lugar = (d.get('lugar') || '').trim();
+    const fecha = (d.get('fecha') || '').trim();
+    return [
+      'Hola Jauma, soy ' + nombre + '.',
+      'Proyecto: ' + d.get('tipo') + (lugar ? ' · ' + lugar : ''),
+      fecha ? 'Fecha: ' + fecha : '',
+      '',
+      mensaje
+    ].filter((l, i) => l !== '' || i === 3).join('\n');
+  }
+  brief.addEventListener('submit', e => {
+    e.preventDefault();
+    const t = briefText();
+    if (t) window.open('https://wa.me/34650639596?text=' + encodeURIComponent(t), '_blank', 'noopener');
+  });
+  document.getElementById('by-mail').addEventListener('click', () => {
+    const t = briefText();
+    if (t) location.href = 'mailto:contacto@jaumaraw.com?subject=' + encodeURIComponent('Proyecto de vídeo') + '&body=' + encodeURIComponent(t);
   });
 </script>
 
