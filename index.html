@@ -319,7 +319,7 @@
 
   /* restauración: uniform rounded row + mixed-shape row */
   .rows { display: grid; gap: clamp(28px, 5vw, 64px); }
-  .wall.round .clip { border-radius: 22px; }
+  .clip, .shaped .shape { border-radius: 22px; }
 
   .wall.shapes { align-items: end; }
   .shaped { margin: 0; display: grid; gap: 12px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -497,16 +497,16 @@
   </div>
   <div class="rows">
     <div class="wall shapes">
-      <figure class="shaped" tabindex="0"><div class="shape tall" style="border-radius:36px 999px 36px 36px"><video class="auto" src="v/timeout.mp4" poster="p/timeout.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Time Out Market</span><span class="spec">00:31 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
-      <figure class="shaped" tabindex="0"><div class="shape tall" style="border-radius:36px 36px 36px 999px"><video class="auto" src="v/tasca-jota.mp4" poster="p/tasca-jota.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Tasca Jota</span><span class="spec">00:35 · 9:16 · 1080p</span><span class="hint">Toca para oír</span></figcaption></figure>
-      <figure class="shaped" tabindex="0"><div class="shape tall" style="border-radius:36px 36px 999px 36px"><video class="auto" src="v/infame-cena.mp4" poster="p/infame-cena.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Infame · Cena</span><span class="spec">00:19 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
-      <figure class="shaped" tabindex="0"><div class="shape tall" style="border-radius:999px 36px 36px 36px"><video class="auto" src="v/lamassa.mp4" poster="p/lamassa.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">La Massa</span><span class="spec">00:21 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/timeout.mp4" poster="p/timeout.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Time Out Market</span><span class="spec">00:31 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/tasca-jota.mp4" poster="p/tasca-jota.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Tasca Jota</span><span class="spec">00:35 · 9:16 · 1080p</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/infame-cena.mp4" poster="p/infame-cena.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Infame · Cena</span><span class="spec">00:19 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/lamassa.mp4" poster="p/lamassa.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">La Massa</span><span class="spec">00:21 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
     </div>
     <div class="wall shapes">
-      <figure class="shaped" tabindex="0"><div class="shape tall" style="border-radius:36px 999px 36px 999px"><video class="auto" src="v/alchemie.mp4" poster="p/alchemie.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Alchemie</span><span class="spec">00:15 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
-      <figure class="shaped" tabindex="0"><div class="shape leaf" style="border-radius:80px 80px 14px 999px"><video class="auto" src="v/comporta.mp4" poster="p/comporta.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Comporta Flavors</span><span class="spec">00:40 · 9:16 · 1080p</span><span class="hint">Toca para oír</span></figcaption></figure>
-      <figure class="shaped" tabindex="0"><div class="shape leaf" style="border-radius:80px 80px 999px 14px"><video class="auto" src="v/infame-desayuno.mp4" poster="p/infame-desayuno.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Infame · Desayuno</span><span class="spec">00:13 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
-      <figure class="shaped" tabindex="0"><div class="shape tall" style="border-radius:999px 36px 999px 36px"><video class="auto" src="v/doliva.mp4" poster="p/doliva.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">D'Oliva</span><span class="spec">00:23 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/alchemie.mp4" poster="p/alchemie.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Alchemie</span><span class="spec">00:15 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/comporta.mp4" poster="p/comporta.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Comporta Flavors</span><span class="spec">00:40 · 9:16 · 1080p</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/infame-desayuno.mp4" poster="p/infame-desayuno.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">Infame · Desayuno</span><span class="spec">00:13 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
+      <figure class="shaped" tabindex="0"><div class="shape tall"><video class="auto" src="v/doliva.mp4" poster="p/doliva.jpg" muted loop playsinline preload="none"></video></div><figcaption><span class="name">D'Oliva</span><span class="spec">00:23 · 9:16 · 4K</span><span class="hint">Toca para oír</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -558,6 +558,14 @@
 
 <script>
 
+  const small = matchMedia('(max-width: 700px)').matches;
+  if (small) {
+    document.querySelectorAll('video.auto:not(#lead)').forEach(v => {
+      v.preload = 'none';
+      v.src = v.getAttribute('src').replace('v/', 'v/m/');
+    });
+  }
+
   const vids = [...document.querySelectorAll('video.auto')];
 
   const io = new IntersectionObserver((entries) => {
@@ -571,7 +579,7 @@
         if (card && card.classList.contains('on')) { v.muted = true; card.classList.remove('on'); }
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.01, rootMargin: "500px 0px" });
   vids.forEach(v => io.observe(v));
 
   const clips = [...document.querySelectorAll('.clip, .shaped')];
