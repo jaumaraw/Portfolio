@@ -378,7 +378,7 @@
   .field { display: grid; gap: 8px; margin: 0; padding: 0; border: 0; min-width: 0; }
   .field label, .field legend { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper-dim); padding: 0; }
   .field legend { margin-bottom: 8px; }
-  .brief input[type="text"], .brief textarea {
+  .brief input[type="text"], .brief input[type="tel"], .brief textarea, .range-btn {
     width: 100%;
     font: inherit;
     font-size: 1rem;
@@ -407,6 +407,68 @@
   .form-status.ok { color: #9be3a8; }
   .form-status.fail { color: #ff8a7a; }
   .send[disabled] { opacity: 0.6; cursor: wait; }
+  .flabel { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper-dim); }
+
+  .tel { position: relative; }
+  .tel-prefix { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: rgba(246, 239, 230, 0.38); pointer-events: none; }
+  .brief .tel input { padding-left: 52px; }
+
+  .range { position: relative; }
+  .range-btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; text-align: left; cursor: pointer; }
+  .range-btn.empty span { color: rgba(246, 239, 230, 0.38); }
+  .range-btn svg { flex: none; color: var(--paper-dim); transition: transform 0.2s; }
+  .range-btn[aria-expanded="true"] { outline: 2px solid var(--paper); outline-offset: 1px; border-color: transparent; }
+  .range-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .range-btn:focus-visible { outline: 2px solid var(--paper); outline-offset: 1px; }
+
+  .cal {
+    position: absolute;
+    z-index: 30;
+    top: calc(100% + 8px);
+    left: 0;
+    width: min(340px, 100%);
+    padding: 14px;
+    border-radius: 18px;
+    border: 1px solid var(--paper-line);
+    background: #242127;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    display: grid;
+    gap: 10px;
+  }
+  .cal[hidden] { display: none; }
+  .cal-head { display: flex; align-items: center; justify-content: space-between; }
+  .cal-month { font-family: var(--display); font-stretch: 112%; font-weight: 800; text-transform: uppercase; font-size: 1rem; letter-spacing: 0.02em; }
+  .cal-nav { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--paper-line); background: transparent; color: var(--paper); font-size: 1.2rem; line-height: 1; cursor: pointer; }
+  .cal-nav:hover:not(:disabled) { background: var(--paper); color: var(--ink); }
+  .cal-nav:disabled { opacity: 0.3; cursor: default; }
+  .cal-dow, .cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .cal-dow span { text-align: center; font-family: var(--mono); font-size: 0.66rem; color: var(--paper-dim); padding-block: 4px; }
+  .cal-grid { row-gap: 2px; }
+  .day {
+    aspect-ratio: 1;
+    max-width: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--paper);
+    font: inherit;
+    font-size: 0.88rem;
+    font-variant-numeric: tabular-nums;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .day:hover:not(:disabled) { background: rgba(246, 239, 230, 0.12); }
+  .day:disabled { color: rgba(246, 239, 230, 0.22); cursor: default; }
+  .day.today { box-shadow: inset 0 0 0 1px var(--paper-dim); }
+  .day.mid { background: rgba(200, 41, 27, 0.32); border-radius: 0; }
+  .day.start, .day.end { background: var(--tomato); color: var(--paper); }
+  .day.start.has-end { border-radius: 999px 0 0 999px; }
+  .day.end { border-radius: 0 999px 999px 0; }
+  .day.start.end { border-radius: 999px; }
+  .cal-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding-top: 6px; border-top: 1px solid var(--paper-line); }
+  .cal-hint { font-size: 0.82rem; color: var(--paper-dim); }
+  .cal-actions { display: flex; gap: 8px; }
+  .cal-actions .btn { padding: 9px 14px; }
+  .send.small { padding: 9px 16px; font-size: 0.85rem; }
   .contact > .eyebrow { font-size: 0.82rem; }
   .line .eyebrow { font-size: 0.8rem; }
 
@@ -608,8 +670,30 @@
         </div>
       </fieldset>
       <div class="field">
-        <label for="f-date">Fecha aproximada</label>
-        <input id="f-date" name="fecha" type="text" placeholder="Ej. finales de noviembre">
+        <span class="flabel" id="f-date-label">Fecha aproximada</span>
+        <div class="range">
+          <button type="button" class="range-btn empty" id="f-date-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="cal" aria-labelledby="f-date-label f-date-text">
+            <span id="f-date-text">Elige un rango de fechas</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <input type="hidden" name="fecha" id="f-date">
+          <div class="cal" id="cal" role="dialog" aria-label="Elegir rango de fechas" hidden>
+            <div class="cal-head">
+              <button type="button" class="cal-nav" id="cal-prev" aria-label="Mes anterior">&#8249;</button>
+              <span class="cal-month" id="cal-month"></span>
+              <button type="button" class="cal-nav" id="cal-next" aria-label="Mes siguiente">&#8250;</button>
+            </div>
+            <div class="cal-dow" aria-hidden="true"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+            <div class="cal-grid" id="cal-grid"></div>
+            <div class="cal-foot">
+              <span class="cal-hint" id="cal-hint">Elige el primer día</span>
+              <div class="cal-actions">
+                <button type="button" class="btn" id="cal-clear">Borrar</button>
+                <button type="button" class="send small" id="cal-ok">Listo</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="field">
         <label for="f-msg">Mensaje</label>
@@ -617,10 +701,13 @@
       </div>
       <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
       <div class="field">
-        <label for="f-mail">Email o teléfono</label>
-        <input id="f-mail" name="contacto" type="text" autocomplete="email" required placeholder="Para poder responderte">
+        <label for="f-tel">Teléfono</label>
+        <div class="tel">
+          <span class="tel-prefix" aria-hidden="true">+34</span>
+          <input id="f-tel" name="contacto" type="tel" inputmode="tel" autocomplete="tel-national" required placeholder="600 000 000">
+        </div>
       </div>
-      <p class="form-error" id="f-error" hidden>Rellena tu nombre, cómo contactarte y el mensaje.</p>
+      <p class="form-error" id="f-error" hidden>Rellena tu nombre, tu teléfono y el mensaje.</p>
       <div class="actions">
         <button class="send" type="submit" id="f-send">Enviar mensaje</button>
         <button class="btn" type="button" id="by-wa">O escríbeme por WhatsApp</button>
@@ -701,6 +788,79 @@
     setTimeout(() => { copy.textContent = 'Copiar'; }, 1800);
   });
 
+  const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const cal = document.getElementById('cal');
+  const calBtn = document.getElementById('f-date-btn');
+  const calText = document.getElementById('f-date-text');
+  const calInput = document.getElementById('f-date');
+  const calGrid = document.getElementById('cal-grid');
+  const calHint = document.getElementById('cal-hint');
+  const calPrev = document.getElementById('cal-prev');
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const thisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+  let view = new Date(thisMonth), rStart = null, rEnd = null;
+
+  const same = (a, b) => a && b && a.getTime() === b.getTime();
+  function label() {
+    if (!rStart) return '';
+    const f = d => d.getDate() + ' ' + MES[d.getMonth()];
+    if (!rEnd || same(rStart, rEnd)) return f(rStart) + ' ' + rStart.getFullYear();
+    if (rStart.getFullYear() !== rEnd.getFullYear()) return f(rStart) + ' ' + rStart.getFullYear() + ' – ' + f(rEnd) + ' ' + rEnd.getFullYear();
+    if (rStart.getMonth() === rEnd.getMonth()) return rStart.getDate() + '–' + rEnd.getDate() + ' ' + MES[rEnd.getMonth()] + ' ' + rEnd.getFullYear();
+    return f(rStart) + ' – ' + f(rEnd) + ' ' + rEnd.getFullYear();
+  }
+  function sync() {
+    const t = label();
+    calInput.value = t;
+    calText.textContent = t || 'Elige un rango de fechas';
+    calBtn.classList.toggle('empty', !t);
+    calHint.textContent = !rStart ? 'Elige el primer día' : !rEnd ? 'Ahora el último día' : 'Rango elegido';
+  }
+  function render() {
+    document.getElementById('cal-month').textContent = MESES[view.getMonth()] + ' ' + view.getFullYear();
+    calPrev.disabled = view <= thisMonth;
+    const offset = (view.getDay() + 6) % 7;
+    const days = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+    calGrid.textContent = '';
+    for (let i = 0; i < offset; i++) calGrid.appendChild(document.createElement('span'));
+    for (let n = 1; n <= days; n++) {
+      const d = new Date(view.getFullYear(), view.getMonth(), n);
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'day';
+      b.textContent = n;
+      b.setAttribute('aria-label', n + ' de ' + MESES[d.getMonth()]);
+      if (d < today) b.disabled = true;
+      if (same(d, today)) b.classList.add('today');
+      if (same(d, rStart)) { b.classList.add('start'); if (rEnd && !same(rStart, rEnd)) b.classList.add('has-end'); }
+      if (same(d, rEnd)) b.classList.add('end');
+      if (rStart && rEnd && d > rStart && d < rEnd) b.classList.add('mid');
+      b.addEventListener('click', e => {
+        e.stopPropagation();
+        if (!rStart || rEnd) { rStart = d; rEnd = null; }
+        else if (d < rStart) { rStart = d; }
+        else { rEnd = d; }
+        sync(); render();
+      });
+      calGrid.appendChild(b);
+    }
+  }
+  function openCal(open) {
+    cal.hidden = !open;
+    calBtn.setAttribute('aria-expanded', String(open));
+    if (open) render();
+  }
+  function clearRange() { rStart = rEnd = null; view = new Date(thisMonth); sync(); render(); }
+  calBtn.addEventListener('click', () => openCal(cal.hidden));
+  calPrev.addEventListener('click', e => { e.stopPropagation(); view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); });
+  document.getElementById('cal-next').addEventListener('click', e => { e.stopPropagation(); view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(); });
+  document.getElementById('cal-clear').addEventListener('click', e => { e.stopPropagation(); clearRange(); });
+  document.getElementById('cal-ok').addEventListener('click', () => { openCal(false); calBtn.focus(); });
+  document.addEventListener('click', e => { if (!cal.hidden && !e.target.closest('.range')) openCal(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !cal.hidden) { openCal(false); calBtn.focus(); } });
+  sync();
+
   const brief = document.getElementById('brief');
   const status = document.getElementById('f-status');
   const sendBtn = document.getElementById('f-send');
@@ -732,18 +892,18 @@
         body: JSON.stringify({
           _subject: 'Nuevo proyecto: ' + data.tipo + (data.lugar ? ' · ' + data.lugar : ''),
           _template: 'table',
-          _replyto: data.contacto.includes('@') ? data.contacto : undefined,
           Nombre: data.nombre,
           'Restaurante o evento': data.lugar || '—',
           Tipo: data.tipo,
           Fecha: data.fecha || '—',
-          Contacto: data.contacto,
+          'Teléfono': data.contacto.startsWith('+') ? data.contacto : '+34 ' + data.contacto,
           Mensaje: data.mensaje
         })
       });
       const out = await res.json().catch(() => ({}));
       if (!res.ok || String(out.success) === 'false') throw new Error(out.message || res.status);
       brief.reset();
+      clearRange();
       status.className = 'form-status ok';
       status.textContent = 'Mensaje enviado. Te respondo lo antes posible.';
     } catch {
